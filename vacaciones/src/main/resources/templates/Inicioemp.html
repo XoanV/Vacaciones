@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Página de inicio</title>
+</head>
+<body>
+	<header th:replace="comun/Cabecera :: cab"></header>
+	<div id="peticion">
+		<fieldset id="petPend">
+			<legend class="peticiones">Peticiones pendientes</legend>
+			<section th:forEach="pet : ${peticionVacaciones}">
+				<ul>
+					<li>IdPeticion: <span th:text="pet.idPeticion"></span></li>
+					<li>Año: <span th:text="pet.año"></span></li>	
+					<li>Comentario: <span th:text="pet.comentario"></span></li>	
+				</ul>
+			</section>
+		</fieldset>
+		<fieldset id="petAprob">
+			<legend class="peticiones">Peticiones aprobadas</legend>
+			<section th:forEach="pet : ${peticionVacaciones}">
+				<ul>
+					<li>IdPeticion: <span th:text="pet.idPeticion"></span></li>
+					<li>Año: <span th:text="pet.año"></span></li>	
+					<li>Comentario: <span th:text="pet.comentario"></span></li>	
+				</ul>
+			</section>
+		</fieldset>
+		<fieldset id="petRechazadas">
+			<legend class="peticiones">Peticiones rechazadas</legend>
+			<section th:forEach="pet : ${peticionVacaciones}">
+				<ul>
+					<li>IdPeticion: <span th:text="pet.idPeticion"></span></li>
+					<li>Año: <span th:text="pet.año"></span></li>	
+					<li>Comentario: <span th:text="pet.comentario"></span></li>	
+				</ul>
+			</section>
+		</fieldset>
+	</div>
+	<script src="js/Menu.js"></script>
+</body>
+</html>
