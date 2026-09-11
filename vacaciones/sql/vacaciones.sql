@@ -1,3 +1,5 @@
+drop database if exists Vacaciones;
+
 create database Vacaciones;
 
 use Vacaciones;
@@ -5,7 +7,7 @@ use Vacaciones;
 create table Usuario (
 	id_usuario int primary key auto_increment,
     email varchar(80) not null,
-    clave varchar(50) not null, 
+    clave varchar(100) not null, 
     nombre varchar(20) not null,
     apellidos varchar(30) not null,
     tipo_usuario enum('GESTOR', 'EMPLEADO') not null,

@@ -31,16 +31,15 @@ public class SesionController {
 
 	@RequestMapping(path = "inicio", method = RequestMethod.POST)
 	public String iniciarSesion(@ModelAttribute("usuario") Usuario usuario, Model modelo, HttpSession sesion) {
-		String contra = cifrado.encode(usuario.getClave());
-		Usuario resultado = fachada.iniciarSesion(usuario.getEmail(), usuario.getClave());
+		Usuario resultado = fachada.iniciarSesion(usuario.getEmail());
 		if (resultado != null) {
-			if (contra.matches(usuario.getClave())) {
-				if (usuario.getTipoUsuario().name() == "EMPLEADO") {
+			if (cifrado.matches(usuario.getClave(), resultado.getClave())) {
+				if (resultado.getTipoUsuario().name().equals("EMPLEADO")) {
 					sesion.setAttribute("usuario", resultado);
-					return "inicioemp";
-				} else if (usuario.getTipoUsuario().name() == "GESTOR") {
+					return "Inicioemp";
+				} else if (resultado.getTipoUsuario().name().equals("GESTOR")) {
 					sesion.setAttribute("usuario", resultado);
-					return "iniciogestor";
+					return "Iniciogestor";
 				}
 			} else {
 				if (usuario.getEmail() == null || usuario.getEmail().equals("") || usuario.getClave() == null || usuario.getClave().equals("")) {

@@ -16,8 +16,8 @@
 		
 		        <div>
 		            <label for="cajapassword">Introduce tu contraseña:</label>
-		            <input type="password" id="cajapassword" th:field="*{password}" required class="visible">
-		            <img alt="ojo" src="imagenes/ojo_cerrado.png" class="imagenojo"/>
+		            <input type="password" id="cajapassword" th:field="*{clave}" required class="visible">
+		            <img alt="ojo" src="../public/imagenes/ojo_cerrado.png" class="imagenojo"/>
 		        </div>
 		
 		        <input type="submit" value="Iniciar sesión">
@@ -25,7 +25,7 @@
 		        <div class="error" th:if="${error}">
 		            <span th:text="${error}"></span>
 		        </div>
-		        <span>Si no tienes cuenta,<a href="Registro.html"> haz click aquí</a>para registrarse.</span>
+		        <span>Si no tienes cuenta,<a th:href="@{/registro}"> haz click aquí</a> para registrarse.</span>
 		    </form>
 		</fieldset>
 	</section>

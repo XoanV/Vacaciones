@@ -17,7 +17,7 @@
 			    </div>
 			    <div class="campo">
 			        <label for="txtap">Introduce tus apellidos:</label>
-			        <input type="text" id="txtnombre" th:field="*{nombre}" placeholder="Nombre" required>
+			        <input type="text" id="txtnombre" th:field="*{apellidos}" placeholder="Apellidos" required>
 			    </div>
 			    <div class="campo">
 			        <label for="txtemail">Introduce tu correo electrónico:</label>
@@ -26,7 +26,7 @@
 			
 			    <div class="campo">
 			        <label for="txtclave">Introduzca una contraseña:</label>
-			        <input type="password" id="txtclave" th:field="*{password}" required class="visible">
+			        <input type="password" id="txtclave" th:field="*{clave}" required class="visible">
 			        <img alt="ojo" src="imagenes/ojo_cerrado.png" class="imagenojo"/>
 			    </div>
 			    
@@ -37,10 +37,9 @@
 			    </div>
 			    <div class="campo">
 			        <label for="Centro">Elige tu centro:</label>
-			        <select id="Centro">
-			        	<option selected disabled>Selecciona un centro</option>
-			        	<option th:forEach="c : ${centros}" 
-			        	th:value="c" th:text="c"></option>
+			        <select id="Centro" th:field="*{centro}">
+			        	<option value="" selected disabled>Selecciona un centro</option>
+			        	<option th:each="c : ${centros}" th:value="${c}" th:text="${c}"></option>
 			        </select>
 			    </div>
 			    <div class="error" th:if="${errorR}">

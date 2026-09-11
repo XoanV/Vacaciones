@@ -1,9 +1,11 @@
 package org.afdt.vacaciones.controller;
 
+import org.afdt.vacaciones.model.Centro;
 import org.afdt.vacaciones.model.Usuario;
 import org.afdt.vacaciones.model.facade.UsuarioFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+@Controller
 public class RegistroController {
 
 	@Autowired
@@ -23,6 +26,7 @@ public class RegistroController {
 	public String irRegistro(Model modelo) {
 		Usuario nuevoUsuario = new Usuario();
 		modelo.addAttribute("usuario", nuevoUsuario);
+		modelo.addAttribute("centros", Centro.values());
 		return "Registro";
 	}
 
@@ -32,13 +36,7 @@ public class RegistroController {
 		if (!usuario.getClave().equals(passwordrepe)) {
 			modelo.addAttribute("errorR", "Las contraseñas no coinciden.");
 			return "Registro";
-		} else if (fachada.existeEmail(usuario.getEmail())) {
-			modelo.addAttribute("errorR", "El email introducido ya existe.");
-			modelo.addAttribute("usuario", usuario);
-			return "Registro";
-		} else if (usuario.getNombre() == null || usuario.getNombre().equals("") || usuario.getEmail() == null || usuario.getApellidos() == null || usuario.getApellidos().equals("") || usuario.getEmail() == null
-				|| usuario.getEmail().equals("") || usuario.getClave() == null || usuario.getClave().equals("")
-				|| passwordrepe == null || passwordrepe.equals("")) {
+		} else if (usuario.getNombre() == null || usuario.getNombre().equals("") || usuario.getEmail() == null || usuario.getApellidos() == null || usuario.getApellidos().equals("") || usuario.getEmail().equals("") || usuario.getClave() == null || usuario.getClave().equals("") || passwordrepe == null || passwordrepe.equals("")) {
 			modelo.addAttribute("errorR", "Hay campos incompletos.");
 			modelo.addAttribute("usuario", usuario);
 			return "Registro";

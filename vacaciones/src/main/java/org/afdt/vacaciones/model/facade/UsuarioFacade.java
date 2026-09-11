@@ -11,8 +11,8 @@ public class UsuarioFacade {
 	@Autowired
 	private UsuarioDAO usuDAO;
 
-	public Usuario iniciarSesion(String email, String clave) {
-		return usuDAO.findByEmailAndClave(email, clave);
+	public Usuario iniciarSesion(String email) {
+		return usuDAO.findByEmail(email);		
 	}
 
 	public Usuario altaUsuario(Usuario usuario) {

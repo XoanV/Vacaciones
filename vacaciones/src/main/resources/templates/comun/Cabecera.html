@@ -15,7 +15,7 @@
            <div class="contenedor" id="menuPerfil">
 		<ul>
 			<li><a th:href="@{/irmiperfil}">Ver mis datos</a></li>
-			<li th:if="${session.usuario.tipoUsuario.name() == 'GESTOR'}">Resetear la contraseña de</li>
+			<li th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}">Resetear la contraseña de</li>
 			<li><a th:href="@{/sesioncerrada}">Cerrar Sesión</a></li>
 		</ul>
 	</div>            
@@ -23,9 +23,9 @@
         <div>
         	<nav>
         		<a th:href="@{/Inicio}">Inicio</a>
-        		<a th:href="@{/Inicio}">Buscar peticiones por</a>
-        		<a th:if="${session.usuario.tipoUsuario.name() == 'GESTOR'}" th:href="@{/peticiones}">Peticiones pendientes</a>
-        		<a th:if="${session.usuario.tipoUsuario.name() == 'EMPLEADO'}" th:href="@{/}">Realizar peticiones</a>
+        		<a th:href="@{#}">Buscar peticiones por</a>
+        		<a th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}" th:href="@{/peticiones}">Peticiones pendientes</a>
+        		<a th:if="${session.usuario.tipoUsuario.name().equals('EMPLEADO')}" th:href="@{/}">Realizar peticiones</a>
         		<a th:href="@{/Inicio}">Inicio</a>
         	</nav>
         </div>
