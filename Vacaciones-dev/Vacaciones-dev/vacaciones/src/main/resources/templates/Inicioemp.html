@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../static/css/Cabecera.css" th:href="@{/css/Cabecera.css}"/>
+<link rel="stylesheet" href="../static/css/Empleado.css" th:href="@{/css/Empleado.css}">
+<title>Página de inicio</title>
+</head>
+<body>
+	<header th:replace="~{comun/Cabecera :: cab}"></header>
+	<div id="peticion">
+		<fieldset>
+			<legend class="peticiones">Peticiones pendientes</legend>
+			 <span th:if="${peticionVacacionesPendientes == null and #lists.isEmpty(peticionVacacionesPendientes)}">No hay peticiones pendientes.</span>
+				<ul id="petPend" th:each="pet : ${peticionVacacionesPendientes}" th:unless="${peticionVacacionesPendientes == null and #lists.isEmpty(peticionVacacionesPendientes)}">
+					<li>IdPeticion: <span th:text="${pet.idPeticion}"></span></li>
+					<li>Año: <span th:text="${pet.año}"></span></li>	
+					<li>Comentario: <span th:text="${pet.comentario}"></span></li>	
+				</ul>
+		</fieldset>
+		<fieldset>
+			<legend class="peticiones">Peticiones aprobadas</legend>
+			<span th:if="${peticionVacacionesAprobadas == null and #lists.isEmpty(peticionVacacionesAprobadas)}">No hay peticiones aprobadas.</span>
+			<ul id="petAprob" th:each="pet : ${peticionVacacionesAprobadas}" th:unless="${peticionVacacionesAprobadas == null and #lists.isEmpty(peticionVacacionesAprobadas)}">
+					<li>IdPeticion: <span th:text="${pet.idPeticion}"></span></li>
+					<li>Año: <span th:text="${pet.año}"></span></li>	
+					<li>Comentario: <span th:text="${pet.comentario}"></span></li>	
+				</ul>
+		</fieldset>
+		<fieldset>
+			<legend class="peticiones">Peticiones rechazadas</legend>
+			<span th:if="${peticionVacacionesRechazadas == null and #lists.isEmpty(peticionVacacionesRechazadas)}">No hay peticiones rechazadas.</span>
+			<ul id="petRechazadas" th:each="pet : ${peticionVacacionesRechazadas}" th:unless="${peticionVacacionesRechazadas == null and #lists.isEmpty(peticionVacacionesRechazadas)}">
+					<li>IdPeticion: <span th:text="${pet.idPeticion}"></span></li>
+					<li>Año: <span th:text="${pet.año}"></span></li>	
+					<li>Comentario: <span th:text="${pet.comentario}"></span></li>	
+				</ul>
+		</fieldset>
+	</div>
+	<script src="js/Menu.js"></script>
+</body>
+</html>

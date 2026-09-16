@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+
+ <header th:fragment="cab">
+ 	    <a href="/">
+	        <img src="/img/logo_afdtbnb_hd.png" alt="Logo" class="logo">
+		</a>
+        <div>
+           <img src="/imagenes/perfil.png" alt="Perfil" class="avatar" id="perfil">
+           <div class="contenedor" id="menuPerfil">
+				<ul>
+					<li><a th:href="@{/perfilUsuario}">Ver mis datos</a></li>
+					<li th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}">Resetear la contraseña de</li>
+					<li><a th:href="@{/sesioncerrada}">Cerrar Sesión</a></li>
+				</ul>
+			</div>            
+        </div>
+        <div>
+        	<nav>
+        		<a th:href="@{/paginaInicio}">Inicio</a>
+        		<a id="buscar">Buscar peticiones por</a>
+        		<div id="peticiones">
+        			<ul>
+        				<li>Año
+	        				<ul>
+	        					<li><a>2026</a></li>
+	        					<li><a>2027</a></li>
+	        				</ul>
+	        			</li>
+        				<li th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}">Centro</li>
+        				<li>Estado</li>
+        				<li th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}">Usuario</li> 
+        			</ul>
+        		</div>
+        		<a th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}" th:href="@{/peticiones}">Peticiones pendientes</a>
+        		<a th:if="${session.usuario.tipoUsuario.name().equals('EMPLEADO')}" th:href="@{/}">Realizar peticiones</a>
+        	</nav>
+        </div>
+    </header>
+</body>
+</html>

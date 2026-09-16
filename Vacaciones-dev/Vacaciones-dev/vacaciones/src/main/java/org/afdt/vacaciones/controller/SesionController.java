@@ -54,5 +54,11 @@ public class SesionController {
 		}
 		return "Iniciarsesion";
 	}
+	
+	@GetMapping("/sesioncerrada")
+	public String cerrarSesion(HttpSession sesion) {
+		sesion.invalidate();
+		return "redirect:/";
+	}
 }
 

@@ -1,0 +1,110 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    height: 100px;
+    background-color: #1c3f6c;
+    color: white;
+    padding: 25px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 90px;
+    gap: 50px;
+}
+
+nav a {
+    color: white;
+    text-align: center;
+    font-size: 14pt;
+    font-family: Arial;
+    text-decoration: none;
+}
+
+ul {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    padding: 10px;
+    list-style: none;
+    margin-top: 10px;
+}
+
+.logo {
+    height: 75px;
+    width: auto;
+    padding: 5px;
+}
+
+.contenedor {
+    display: none;
+    position: absolute;
+    right: 30px;
+    top: 85px;
+    background-color: white;
+    border-radius: 6px;
+}
+
+.contenedor.mostrar {
+    display: block;
+}
+
+.avatar {
+    position: absolute;
+    right: 40px;
+    top: 30%;
+    width: 65px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.contenedor a {
+    display: block;
+    padding: 12px;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+}
+
+#perfil, #buscar {
+    cursor: pointer;
+}
+
+#peticiones {
+    display: none;
+    position: absolute;
+    top: 85px;
+    background-color: white;
+    border-radius: 6px;
+}
+
+#peticiones.visible {
+    display: block;
+}
+
+#peticiones ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 10px;
+    margin: 0;
+    background-color: white;
+    border-radius: 6px;
+}
+
+li {
+    padding: 12px;
+    background-color: white;
+    color: black;
+    list-style: none;
+}
