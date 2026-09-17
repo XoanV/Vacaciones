@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Ver perfil</title>
+    <link rel="stylesheet" href="../static/css/Cabecera.css" th:href="@{/css/Cabecera.css}"/>
+    <link rel="stylesheet" href="../static/css/Perfil.css" th:href="@{/css/Perfil.css}">
+</head>
+<body>
+    <header th:replace="~{comun/Cabecera :: cab}"></header>
+    <div class="perfil">
+            <div class="seccion">
+                <h3>Mis Datos</h3>
+                <p>Nombre: <span th:text="${session.usuario.nombre}"></span></p>
+                <p>Apellidos: <span th:text="${session.usuario.apellidos}"></span></p>
+                <p>Correo: <span class="texto" th:text="${session.usuario.email}"></span></p>
+                <p>Clave: <span class="texto" th:text="${session.usuario.clave}"></span></p>
+                <p>Rol: <span th:text="${session.usuario.tipoUsuario}"></span></p>
+                <p>Centro: <span id="cent" th:text="${session.usuario.centro}"></span></p>
+                
+                <select id="Centro" name="centro">
+    				<option th:each="c : ${centros}" th:value="${c}" th:text="${c}" th:selected="${c == session.usuario.centro}">
+				    </option>
+				</select>
+				<input type="button" id="act" value="Actualizar datos">
+				<input type="button" id="inicio" value="Volver a la página de inicio" th:onclick="|window.location.href='@{/paginaInicio}'|">
+			</div>
+		</div>
+	
+	<script type="text/javascript" th:src="@{js/Menu.js}"></script>
+	<script th:inline="javascript">
+	    const urlActualizarPerfil = /*[[@{/actualizarPerfil}]]*/ "";
+	</script>
+	<script type="text/javascript" th:src="@{js/Perfil.js}"></script>				
+</body>
+</html>

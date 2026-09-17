@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Registro de usuarios</title>
+ <link rel="stylesheet" href="../static/css/Registro.css" th:href="@{/css/Registro.css}">
+ <link rel="stylesheet" href="../static/css/cabecera.css" th:href="@{/css/cabecera.css}">
+</head>
+<body>	
+		<form th:action="@{/registro}" th:object="${usuario}" method="post">		
+		    <fieldset>
+		    <legend>Registro</legend>		
+			    <div class="campo">
+			        <label for="txtnombre">Introduce tu nombre:</label>
+			        <input type="text" id="txtnombre" th:field="*{nombre}" placeholder="Nombre" required>
+			    </div>
+			    <div class="campo">
+			        <label for="txtap">Introduce tus apellidos:</label>
+			        <input type="text" id="txtnombre" th:field="*{apellidos}" placeholder="Apellidos" required>
+			    </div>
+			    <div class="campo">
+			        <label for="txtemail">Introduce tu correo electrónico:</label>
+			        <input type="text" id="txtemail" th:field="*{email}" placeholder="nombre.primerapellido@academiapostal.es" required>
+			    </div>
+			
+			    <div class="campo">
+			        <label for="txtclave">Introduzca una contraseña:</label>
+			        <input type="password" id="txtclave" th:field="*{clave}" required class="visible">
+			        <img alt="ojo" src="/imagenes/ojo_cerrado.png" class="imagenojo"/>
+			    </div>
+			    
+			     <div class="campo">
+			        <label for="txtclave">Repita la contraseña:</label>
+			        <input type="password" id="txtclave" name="passwordrepe" required class="visible1">
+			        <img alt="ojo" src="/imagenes/ojo_cerrado.png" class="imagenojo"/>
+			    </div>
+			    <div class="campo">
+			        <label for="Centro">Elige tu centro:</label>
+			        <select id="Centro" th:field="*{centro}">
+			        	<option value="seleccentro" selected disabled>Selecciona un centro</option>
+			        	<option th:each="c : ${centros}" th:value="${c}" th:text="${c}"></option>
+			        </select>
+			    </div>
+			    <div class="error" th:if="${errorR}">
+		            <span th:text="${errorR}"></span>
+		        </div>
+				<input type="submit" value="Registrarse">
+		    </fieldset>
+		</form>
+	<script th:src="@{js/Contrasenha.js}"></script>
+</body>
+</html>
