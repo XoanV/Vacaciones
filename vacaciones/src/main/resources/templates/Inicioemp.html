@@ -7,8 +7,30 @@
 	<title>Página de inicio</title>
 </head>
 <body>
-
 	<header th:replace="~{comun/Cabecera :: cab}"></header>
+	<dialog th:if="${session.usuario.claveReseteada == true}">		
+		<form action="@{/reseteoContraseña}" method="post">
+					<div class="campo">
+				        <label for="txtclave">Introduzca tu contraseña actual:</label>
+				        <input type="password" id="txtclave" required>
+				        <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen"/>
+				    </div>
+					<div class="campo">
+				        <label for="txtclave1">Introduzca la nueva contraseña:</label>
+				        <input type="password" id="txtclave1" required>
+				        <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen1"/>
+				    </div>			    
+				     <div class="campo">
+				        <label for="txtclave2">Repita la nueva contraseña:</label>
+				        <input type="password" id="txtclave2" name="passwordrepe" required>
+				        <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen2"/>
+				    </div>
+				    <div class="error" th:if="${errorR}">
+			            <span th:text="${errorR}"></span>
+			        </div>		        
+					<input type="submit" value="Guardar">
+				</form>
+			</dialog>
 	<div id="peticion">
 		<fieldset>
 			<legend class="peticiones">Peticiones pendientes</legend>
@@ -45,5 +67,6 @@
 		</fieldset>
 	</div>
 	<script th:src="@{/js/Menu.js}"></script>
+	<script th:src="@{/js/Actualizarcon.js}"></script>
 </body>
 </html>

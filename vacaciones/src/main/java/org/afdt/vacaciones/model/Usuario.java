@@ -22,18 +22,20 @@ public class Usuario {
 	private TipoUsuario tipoUsuario;
 	@Enumerated(EnumType.STRING)
 	private Centro centro;
+	private boolean claveReseteada;
 	
 	public Usuario() {
 	}
 
 	public Usuario(String email, String clave, String nombre, String apellidos, TipoUsuario tipoUsuario,
-			Centro centro) {
+			Centro centro, boolean claveR) {
 		this.email = email;
 		this.clave = clave;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.tipoUsuario = tipoUsuario;
 		this.centro = centro;
+		this.claveReseteada = claveR; 
 	}
 
 	public int getIdUsuario() {
@@ -90,6 +92,14 @@ public class Usuario {
 
 	public void setCentro(Centro centro) {
 		this.centro = centro;
+	}	
+
+	public boolean isClaveReseteada() {
+		return claveReseteada;
+	}
+
+	public void setClaveReseteada(boolean claveReseteada) {
+		this.claveReseteada = claveReseteada;
 	}
 
 	@Override
@@ -114,7 +124,7 @@ public class Usuario {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Usuario [idUsuario=").append(idUsuario).append(", email=").append(email).append(", clave=")
 				.append(clave).append(", nombre=").append(nombre).append(", apellidos=").append(apellidos)
-				.append(", tipoUsuario=").append(tipoUsuario).append(", centro=").append(centro).append("]");
+				.append(", tipoUsuario=").append(tipoUsuario).append(", centro=").append(centro).append("claveReseteada=").append(claveReseteada).append("]");
 		return builder.toString();
 	}
 }

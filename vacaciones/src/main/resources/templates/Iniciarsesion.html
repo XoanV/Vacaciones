@@ -16,9 +16,9 @@
 		        </div>
 		
 		        <div>
-		            <label for="cajapassword">Introduce tu contraseña:</label>
-		            <input type="password" id="cajapassword" th:field="*{clave}" required class="visible">
-		            <img alt="ojo" src="/imagenes/ojo_cerrado.png" class="imagenojo">
+		            <label for="txtclave">Introduce tu contraseña:</label>
+		            <input type="password" id="txtclave" th:field="*{clave}" required>
+		            <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen">
 		        </div>
 		
 		        <input type="submit" value="Iniciar sesión">
@@ -30,6 +30,6 @@
 			</fieldset>
 		</form>
 	</section>
-	<script th:src="@{js/Contrasenha.js}"></script>
+	<script th:src="@{/js/Inicio.js}"></script>
 </body>
 </html>

@@ -1,33 +1,27 @@
-let imagen = document.getElementsByClassName("imagenojo");
+let ojo = document.getElementById("imagen");
 
-let contrasenha = document.getElementsByClassName("visible");
+let ojo1 = document.getElementById("imagen1");
 
-let contrasenharepe = document.getElementsByClassName("visible1");
+let contrasenha = document.getElementById("txtclave");
 
-for (let img of imagen) {
-	img.addEventListener("click", () => {
-		for (let con of contrasenha) {
-			if (con.type == "password") {
-				img.setAttribute("src", "/imagenes/ojo_abierto.png");
-				con.type = "text";
+let contrasenharepe = document.getElementById("txtclave1");
+
+ojo.addEventListener("click", () => {
+		if (contrasenha.type == "password") {
+				ojo.setAttribute("src", "/imagenes/ojo_abierto.png");
+				contrasenha.type = "text";
 			} else {
-				img.setAttribute("src", "/imagenes/ojo_cerrado.png");
-				con.type = "password";
-			}
-		}		
+				ojo.setAttribute("src", "/imagenes/ojo_cerrado.png");
+				contrasenha.type = "password";
+			}	
 	})
 	
-	for (let img of imagen) {
-		img.addEventListener("click", () => {
-			for (let con of contrasenharepe) {
-				if (con.type == "password") {
-					img.setAttribute("src", "/imagenes/ojo_abierto.png");
-					con.type = "text";
+ojo1.addEventListener("click", () => {
+				if (contrasenharepe.type == "password") {
+					ojo1.setAttribute("src", "/imagenes/ojo_abierto.png");
+					contrasenharepe.type = "text";
 				} else {
-					img.setAttribute("src", "/imagenes/ojo_cerrado.png");
-					con.type = "password";
-				}
-			}		
+					ojo1.setAttribute("src", "/imagenes/ojo_cerrado.png");
+					contrasenharepe.type = "password";
+				}		
 		})
-	}
-}

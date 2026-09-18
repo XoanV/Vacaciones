@@ -13,24 +13,52 @@
                 <h3>Mis Datos</h3>
                 <p>Nombre: <span th:text="${session.usuario.nombre}"></span></p>
                 <p>Apellidos: <span th:text="${session.usuario.apellidos}"></span></p>
-                <p>Correo: <span class="texto" th:text="${session.usuario.email}"></span></p>
-                <p>Clave: <span class="texto" th:text="${session.usuario.clave}"></span></p>
+                <p>Correo: <span th:text="${session.usuario.email}"></span></p>
                 <p>Rol: <span th:text="${session.usuario.tipoUsuario}"></span></p>
-                <p>Centro: <span id="cent" th:text="${session.usuario.centro}"></span></p>
-                
-                <select id="Centro" name="centro">
-    				<option th:each="c : ${centros}" th:value="${c}" th:text="${c}" th:selected="${c == session.usuario.centro}">
-				    </option>
-				</select>
+                <p>Centro: <span th:text="${session.usuario.centro}"></span></p>
 				<input type="button" id="act" value="Actualizar datos">
 				<input type="button" id="inicio" value="Volver a la página de inicio" th:onclick="|window.location.href='@{/paginaInicio}'|">
 			</div>
 		</div>
+		
+		<dialog id="Actualizardatos">
+			<h2>Actualizar perfil</h2>
+			<form th:action="@{/actualizarPerfil}" method="post">
+					<div class="campo">
+				        <label for="txtclave">Introduzca tu contraseña actual:</label>
+				        <input type="password" id="txtclave" name="conAct">
+				        <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen"/>
+				    </div>
+					<div class="campo">
+				        <label for="txtclave1">Introduzca la nueva contraseña:</label>
+				        <input type="password" id="txtclave1" name="conNueva">
+				        <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen1"/>
+				    </div>			    
+				     <div class="campo">
+				        <label for="txtclave2">Repita la nueva contraseña:</label>
+				        <input type="password" id="txtclave2" name="passwordrepe">
+				        <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen2"/>
+				    </div>
+				    <div class="campo">
+				        <label for="txtemail">Introduce tu correo electrónico:</label>
+				        <input type="text" id="txtemail" th:value="${session.usuario.email}" placeholder="nombre.primerapellido@academiapostal.es" name="correo">
+				    </div>
+				    <div class="campo">
+				        <label for="Centro">Elige tu centro:</label>
+				        <select id="Centro">
+				        	<option th:each="c : ${centros}"  th:value="${c.name().substring(0,2)}" th:text="${c}" th:selected="${c == session.usuario.centro}"></option>
+				        </select>
+				    </div>
+				    <div class="error" th:if="${errorR}">
+			            <span th:text="${errorR}"></span>
+			        </div>		        
+					<input type="submit" value="Guardar">
+				</form>
+				<input type="button" id="canc" value="Cancelar">
+		</dialog>
 	
-	<script type="text/javascript" th:src="@{js/Menu.js}"></script>
-	<script th:inline="javascript">
-	    const urlActualizarPerfil = /*[[@{/actualizarPerfil}]]*/ "";
-	</script>
-	<script type="text/javascript" th:src="@{js/Perfil.js}"></script>				
+	<script type="text/javascript" th:src="@{/js/Menu.js}"></script>
+	<script type="text/javascript" th:src="@{/js/Perfil.js}"></script>
+	<script type="text/javascript" th:src="@{/js/Actualizarcon.js}"></script>				
 </body>
 </html>

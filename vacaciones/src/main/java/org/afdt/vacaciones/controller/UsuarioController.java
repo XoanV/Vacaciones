@@ -52,7 +52,7 @@ public class UsuarioController {
 				return "Iniciarsesion";
 			}						
 		} else {
-			modelo.addAttribute("error", "Email o contraseña incorrectos.");
+			modelo.addAttribute("error", "El correo no existe.");
 		}
 		return "Iniciarsesion";
 	}
