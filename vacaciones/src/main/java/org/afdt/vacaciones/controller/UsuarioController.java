@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -70,14 +71,25 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/actualizarPerfil")
-	public String actPerfil() {
-		
+	public String actPerfil() {		
 		return "Perfil";
 	}
 	
 	@PostMapping("/actualizarPerfil")
-	public String actPerfil(@ModelAttribute("usuario") Usuario usuario, Model modelo, HttpSession sesion) {
+	public String actPerfil(@ModelAttribute("usuario") Usuario usuario, @RequestParam(name = "conAct") String conActual, @RequestParam(name = "conNueva") String nueva, @RequestParam(name = "passwordrepe") String repetida, @RequestParam(name = "correo") String email, @RequestParam(name = "centro") Centro cent, Model modelo, HttpSession sesion) {
 		
+		if (cifrado.matches(usuario.getClave(), conActual)) {
+			if (nueva.equals(repetida)) {
+				String concifrada = cifrado.encode(nueva);
+				fachada.actualizarUsuario(usuario.getIdUsuario(), concifrada, email, cent);
+			} else {
+				modelo.addAttribute("error", "Las contraseñas no coinciden.");
+				modelo.addAttribute("error", true);
+			}		 	
+		} else {
+			modelo.addAttribute("error", "La contraseña actual no coincide con la almacenada en la base de datos.");
+			modelo.addAttribute("error", true);
+		}
 		return "Perfil";
 	}
 }
