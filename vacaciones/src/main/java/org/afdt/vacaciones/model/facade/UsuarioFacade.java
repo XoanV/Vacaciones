@@ -30,4 +30,8 @@ public class UsuarioFacade {
 		usuDAO.save(usu.get());
 	}
 
+	public Usuario encontrarUsuario(Integer id) {
+		return usuDAO.findById(id).get();
+	}
+
 }

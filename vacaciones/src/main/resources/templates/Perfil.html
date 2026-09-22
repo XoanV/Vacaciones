@@ -24,7 +24,8 @@
 		<dialog id="Actualizardatos">
 			<h2>Actualizar perfil</h2>
 			<form th:action="@{/actualizarPerfil}" method="post">
-					<div>				
+					<div>
+						<input type="hidden" name="id" th:value="${session.usuario.idUsuario}"> 				
 				        <label for="txtclave">Introduzca tu contraseña actual:</label>
 				        <input type="password" id="txtclave" name="conAct">
 				        <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen"/>

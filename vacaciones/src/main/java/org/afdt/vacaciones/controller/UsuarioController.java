@@ -76,12 +76,15 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/actualizarPerfil")
-	public String actPerfil(@ModelAttribute("usuario") Usuario usuario, @RequestParam(name = "conAct") String conActual, @RequestParam(name = "conNueva") String nueva, @RequestParam(name = "passwordrepe") String repetida, @RequestParam(name = "correo") String email, @RequestParam(name = "centro") Centro cent, Model modelo, HttpSession sesion) {
-		
-		if (cifrado.matches(usuario.getClave(), conActual)) {
+	public String actPerfil(@ModelAttribute("usuario") Usuario usuario, @RequestParam(name = "id") Integer id, @RequestParam(name = "conAct") String conActual, @RequestParam(name = "conNueva") String nueva, @RequestParam(name = "passwordrepe") String repetida, @RequestParam(name = "correo") String email, @RequestParam(name = "centro") Centro cent, Model modelo, HttpSession sesion) {
+		Usuario usu = fachada.encontrarUsuario(id);
+		if (usuario.getEmail() == null || usuario.getEmail().equals("") || usuario.getClave() == null || usuario.getClave().equals("")) {
+			modelo.addAttribute("error", "No puede haber campos vacíos.");
+			return "Perfil";
+		} else if (cifrado.matches(conActual, usu.getClave())) {
 			if (nueva.equals(repetida)) {
 				String concifrada = cifrado.encode(nueva);
-				fachada.actualizarUsuario(usuario.getIdUsuario(), concifrada, email, cent);
+				fachada.actualizarUsuario(usu.getIdUsuario(), concifrada, email, cent);
 			} else {
 				modelo.addAttribute("error", "Las contraseñas no coinciden.");
 				modelo.addAttribute("error", true);

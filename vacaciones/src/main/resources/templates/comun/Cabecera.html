@@ -7,9 +7,6 @@
 <body>
 
  <header th:fragment="cab">
- 	    <a href="/">
-	        <img src="/img/logo_afdtbnb_hd.png" alt="Logo" class="logo">
-		</a>
         <div>
            <img src="/imagenes/perfil.png" alt="Perfil" class="avatar" id="perfil">
            <div class="contenedor" id="menuPerfil">
@@ -38,7 +35,7 @@
         			</ul>
         		</div>
         		<a th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}" th:href="@{/peticiones}">Peticiones pendientes</a>
-        		<a th:if="${session.usuario.tipoUsuario.name().equals('EMPLEADO')}" th:href="@{/}">Realizar peticiones</a>
+        		<a th:if="${session.usuario.tipoUsuario.name().equals('EMPLEADO')}" th:href="@{/realizarpeticion}">Realizar peticiones</a>
         	</nav>
         </div>
     </header>
