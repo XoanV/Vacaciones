@@ -2,50 +2,36 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="../static/css/Cabecera.css" th:href="@{/css/Cabecera.css}" />
-	<link rel="stylesheet" href="../static/css/Perfil.css" th:href="@{/css/Perfil.css}">
+	<link rel="stylesheet" href="../static/css/Cabecera.css" th:href="@{/css/Cabecera.css}"/>
+	<link rel="stylesheet" href="../static/css/Peticion.css" th:href="@{/css/Peticion.css}">
 	<title>Realizar peticiones de Vacaciones</title>
 </head>
 <body>
-	<header th:replace="{Cabecera :: cab}"></header>
-	<form th:action="@{/registro}" th:object="${peticion}" method="post">		
+	<header th:replace="~{comun/Cabecera :: cab}"></header>
+	<form th:action="@{/realizarPeticion}" th:object="${peticion}" method="post">		
 		    <fieldset>
 		    <legend>Realizar petición</legend>		
 			    <div class="campo">
-			        <label for="txtnombre">Introduce tu nombre:</label>
-			        <input type="text" id="txtnombre" th:field="*{nombre}" placeholder="Nombre" required>
+			        <label for="fechaInicio">Selecciona una fecha de inicio:</label>
+			        <input type="date" id="fechaInicio" th:field="*{fechaInicio}" required>
 			    </div>
 			    <div class="campo">
-			        <label for="txtap">Introduce tus apellidos:</label>
-			        <input type="text" id="txtap" th:field="*{apellidos}" placeholder="Apellidos" required>
+			        <label for="fechaFin">Selecciona una fecha final:</label>
+			        <input type="date" id="fechaFin" th:field="*{fechaFin}" required>
 			    </div>
 			    <div class="campo">
-			        <label for="txtemail">Introduce tu correo electrónico:</label>
-			        <input type="text" id="txtemail" th:field="*{email}" placeholder="nombre.primerapellido@academiapostal.es" required>
+			        <label for="anho">Introduce un año:</label>
+			        <input type="text" id="anho" name="anho" required>
 			    </div>
 			
 			    <div class="campo">
-			        <label for="txtclave">Introduzca una contraseña:</label>
-			        <input type="password" id="txtclave" th:field="*{clave}" required>
-			        <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen"/>
-			    </div>
-			    
-			     <div class="campo">
-			        <label for="txtclave1">Repita la contraseña:</label>
-			        <input type="password" id="txtclave1" name="passwordrepe" required>
-			        <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen1"/>
-			    </div>
-			    <div class="campo">
-			        <label for="Centro">Elige tu centro:</label>
-			        <select id="Centro" th:field="*{centro}">
-			        	<option value="seleccentro" selected disabled>Selecciona un centro</option>
-			        	<option th:each="c : ${centros}" th:value="${c}" th:text="${c}"></option>
-			        </select>
+			        <label for="txtcom">Añade un comentario:</label>
+			        <input type="text" id="txtcom" name="com" th:field="*{comentario}">
 			    </div>
 			    <div class="error" th:if="${errorR}">
 		            <span th:text="${errorR}"></span>
 		        </div>
-				<input type="submit" value="Registrarse">
+				<input type="submit" value="Realizar petición">
 		    </fieldset>
 		</form>
 </body>

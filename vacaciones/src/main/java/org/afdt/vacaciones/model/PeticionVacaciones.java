@@ -11,8 +11,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "peticionvacaciones")
 public class PeticionVacaciones {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +26,7 @@ public class PeticionVacaciones {
 	@Enumerated(EnumType.STRING)
 	private EstadoPeticion estado;
 	@ManyToOne
-	@JoinColumn(name = "idUsuario")
+	@JoinColumn(name = "usuario")
 	private Usuario usuario;
 	
 	public PeticionVacaciones() {

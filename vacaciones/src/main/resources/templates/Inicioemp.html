@@ -32,15 +32,15 @@
 				</form>
 			</dialog>
 	<div id="peticion">
-		<fieldset>
+		<fieldset id="petPend">
 			<legend class="peticiones">Peticiones pendientes</legend>
 			<span th:if="${peticionVacacionesPendientes == null or #lists.isEmpty(peticionVacacionesPendientes)}">No hay peticiones pendientes.</span>
 
 			<a th:each="pet : ${peticionVacacionesPendientes}" th:href="@{/peticionesPendientes}">
-				<ul id="petPend">
+				<ul>
 					<li>IdPeticion: <span th:text="${pet.idPeticion}"></span></li>
 					<li>Año: <span th:text="${pet.año}"></span></li>
-					<li>Comentario: <span th:text="${pet.comentario}"></span></li>
+					<li th:if="${pet.comentario != null}">Comentario: <span th:text="${pet.comentario}"></span></li>
 				</ul>
 			</a>
 		</fieldset>
@@ -51,7 +51,7 @@
 			<ul id="petAprob" th:each="pet : ${peticionVacacionesAprobadas}" th:unless="${peticionVacacionesAprobadas == null or #lists.isEmpty(peticionVacacionesAprobadas)}">
 				<li>IdPeticion: <span th:text="${pet.idPeticion}"></span></li>
 				<li>Año: <span th:text="${pet.año}"></span></li>
-				<li>Comentario: <span th:text="${pet.comentario}"></span></li>
+				<li th:if="${pet.comentario != null}">Comentario: <span th:text="${pet.comentario}"></span></li>
 			</ul>
 		</fieldset>
 
@@ -62,7 +62,7 @@
 			<ul id="petRechazadas" th:each="pet : ${peticionVacacionesRechazadas}" th:unless="${peticionVacacionesRechazadas == null or #lists.isEmpty(peticionVacacionesRechazadas)}">
 				<li>IdPeticion: <span th:text="${pet.idPeticion}"></span></li>
 				<li>Año: <span th:text="${pet.año}"></span></li>
-				<li>Comentario: <span th:text="${pet.comentario}"></span></li>
+				<li th:if="${pet.comentario != null}">Comentario: <span th:text="${pet.comentario}"></span></li>
 			</ul>
 		</fieldset>
 	</div>

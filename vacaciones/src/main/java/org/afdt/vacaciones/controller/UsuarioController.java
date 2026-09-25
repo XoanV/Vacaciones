@@ -23,7 +23,28 @@ public class UsuarioController {
 	private UsuarioFacade fachada;
 	
 	@Autowired
-	private PasswordEncoder cifrado;
+	private PasswordEncoder cifrado;	
+
+	@GetMapping("/paginaInicio")
+	public String Inicio(Model mod) {
+		Usuario nuevoUsuario = new Usuario();
+		mod.addAttribute("usuario", nuevoUsuario);
+		return "Inicioemp";
+	}
+	
+	@PostMapping("/paginaInicio")
+	public String pagInicio(Model modelo, HttpSession sesion) {
+		String pagina = "";
+		Usuario nuevoUsuario = (Usuario) sesion.getAttribute("usuario");
+		if (nuevoUsuario.getTipoUsuario().name().equals("EMPLEADO")) {
+			sesion.setAttribute("usuario", nuevoUsuario);
+			pagina = "Inicioemp";
+		} else if (nuevoUsuario.getTipoUsuario().name().equals("GESTOR")) {
+			sesion.setAttribute("usuario", nuevoUsuario);
+			pagina = "Iniciogestor";
+		}
+		return pagina;
+	}
 	
 	@GetMapping("/inicio")
 	public String inicioSesion(Model modelo) {
@@ -65,33 +86,37 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/perfilUsuario")
-	public String irMiPerfil(Model modelo) {
+	public String irMiPerfil(Model modelo,  HttpSession session) {
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		modelo.addAttribute("usuario", usuario);
 		modelo.addAttribute("centros", Centro.values());
 		return "Perfil";
 	}
 	
 	@GetMapping("/actualizarPerfil")
-	public String actPerfil() {		
+	public String actPerfil(Model modelo, HttpSession session) {
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		modelo.addAttribute("usuario", usuario);
 		return "Perfil";
 	}
 	
 	@PostMapping("/actualizarPerfil")
-	public String actPerfil(@ModelAttribute("usuario") Usuario usuario, @RequestParam(name = "id") Integer id, @RequestParam(name = "conAct") String conActual, @RequestParam(name = "conNueva") String nueva, @RequestParam(name = "passwordrepe") String repetida, @RequestParam(name = "correo") String email, @RequestParam(name = "centro") Centro cent, Model modelo, HttpSession sesion) {
+	public String actPerfil(@RequestParam(name = "id") Integer id, @RequestParam(name = "conAct") String conActual, @RequestParam(name = "conNueva") String nueva, @RequestParam(name = "passwordrepe") String repetida, @RequestParam(name = "correo") String email, @RequestParam(name = "centro") Centro cent, Model modelo, HttpSession sesion) {
 		Usuario usu = fachada.encontrarUsuario(id);
-		if (usuario.getEmail() == null || usuario.getEmail().equals("") || usuario.getClave() == null || usuario.getClave().equals("")) {
+		if (email == null || email.isBlank() || conActual == null || conActual.isBlank() || nueva == null || nueva.isBlank() || repetida == null || repetida.isBlank()) {
 			modelo.addAttribute("error", "No puede haber campos vacíos.");
 			return "Perfil";
 		} else if (cifrado.matches(conActual, usu.getClave())) {
 			if (nueva.equals(repetida)) {
 				String concifrada = cifrado.encode(nueva);
 				fachada.actualizarUsuario(usu.getIdUsuario(), concifrada, email, cent);
+				Usuario actual = fachada.encontrarUsuario(id);
+				modelo.addAttribute("usuario", actual);
 			} else {
 				modelo.addAttribute("error", "Las contraseñas no coinciden.");
-				modelo.addAttribute("error", true);
 			}		 	
 		} else {
 			modelo.addAttribute("error", "La contraseña actual no coincide con la almacenada en la base de datos.");
-			modelo.addAttribute("error", true);
 		}
 		return "Perfil";
 	}

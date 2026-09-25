@@ -3,7 +3,9 @@ package org.afdt.vacaciones.model.facade;
 import java.util.Optional;
 
 import org.afdt.vacaciones.model.Centro;
+import org.afdt.vacaciones.model.PeticionVacaciones;
 import org.afdt.vacaciones.model.Usuario;
+import org.afdt.vacaciones.model.dao.PeticionDAO;
 import org.afdt.vacaciones.model.dao.UsuarioDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,6 +15,9 @@ public class UsuarioFacade {
 	
 	@Autowired
 	private UsuarioDAO usuDAO;
+	
+	@Autowired
+	private PeticionDAO petDAO;
 
 	public Usuario iniciarSesion(String email) {
 		return usuDAO.findByEmail(email);		
@@ -32,6 +37,10 @@ public class UsuarioFacade {
 
 	public Usuario encontrarUsuario(Integer id) {
 		return usuDAO.findById(id).get();
+	}
+
+	public PeticionVacaciones altaPeticion(PeticionVacaciones peticionVacaciones) {
+		return petDAO.save(peticionVacaciones);
 	}
 
 }

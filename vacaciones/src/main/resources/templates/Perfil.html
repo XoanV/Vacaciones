@@ -11,11 +11,11 @@
     <div class="perfil">
             <div class="seccion">
                 <h3>Mis Datos</h3>
-                <p>Nombre: <span th:text="${session.usuario.nombre}"></span></p>
-                <p>Apellidos: <span th:text="${session.usuario.apellidos}"></span></p>
-                <p>Correo: <span th:text="${session.usuario.email}"></span></p>
-                <p>Rol: <span th:text="${session.usuario.tipoUsuario}"></span></p>
-                <p>Centro: <span th:text="${session.usuario.centro}"></span></p>
+                <p>Nombre: <span th:text="${usuario.nombre}"></span></p>
+                <p>Apellidos: <span th:text="${usuario.apellidos}"></span></p>
+                <p>Correo: <span th:text="${usuario.email}"></span></p>
+                <p>Rol: <span th:text="${usuario.tipoUsuario}"></span></p>
+                <p>Centro: <span th:text="${usuario.centro}"></span></p>
 				<input type="button" id="act" value="Actualizar datos">
 				<input type="button" id="inicio" value="Volver a la página de inicio" th:onclick="|window.location.href='@{/paginaInicio}'|">
 			</div>
@@ -23,9 +23,9 @@
 		
 		<dialog id="Actualizardatos">
 			<h2>Actualizar perfil</h2>
-			<form th:action="@{/actualizarPerfil}" method="post">
+			<form th:action="@{/actualizarPerfil}" th:object="${usuario}" method="post">
 					<div>
-						<input type="hidden" name="id" th:value="${session.usuario.idUsuario}"> 				
+						<input type="hidden" name="id" th:value="${usuario.idUsuario}"> 				
 				        <label for="txtclave">Introduzca tu contraseña actual:</label>
 				        <input type="password" id="txtclave" name="conAct">
 				        <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen"/>
@@ -42,12 +42,12 @@
 				    </div>
 				    <div>
 				        <label for="txtemail">Introduce tu correo electrónico:</label>
-				        <input type="text" id="txtemail" th:value="${session.usuario.email}" placeholder="nombre.primerapellido@academiapostal.es" name="correo">
+				        <input type="text" id="txtemail" th:value="${usuario.email}" placeholder="nombre.primerapellido@academiapostal.es" name="correo">
 				    </div>
 				    <div>
 				        <label for="Centro">Elige tu centro:</label>
 				        <select id="Centro" name="centro">
-				        	<option th:each="c : ${centros}"  th:value="${c}" th:text="${c}" th:selected="${c == session.usuario.centro}"></option>
+				        	<option th:each="c : ${centros}"  th:value="${c}" th:text="${c}" th:selected="${c == usuario.centro}"></option>
 				        </select>
 				    </div>
 				    <div class="error" th:if="${errorR}">
@@ -61,7 +61,7 @@
 	<script type="text/javascript" th:src="@{/js/Menu.js}"></script>
 	<script type="text/javascript" th:src="@{/js/Perfil.js}"></script>
 	<script th:inline="javascript">
-	    const error = /*[[${errorR != null}]]*/ false;
+	    const error = /*[[${error != null}]]*/ false;
 	
 	    if (error) {
 	        document.getElementById("Actualizardatos").showModal();

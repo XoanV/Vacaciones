@@ -17,6 +17,10 @@ legend {
 	background-color: #ff8000;
 }
 
+#petPend a {
+	text-decoration: none;
+}
+
 #petRechazadas {
 	background-color: #ff0000;
 }
@@ -28,3 +32,6 @@ legend {
 	gap: 18px;
 }
 
+.peticiones {
+	
+}
