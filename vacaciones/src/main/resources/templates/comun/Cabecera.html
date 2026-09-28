@@ -31,7 +31,9 @@
 	        			</li>
         				<li th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}">Centro</li>
         				<li>Estado</li>
-        				<li th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}">Usuario</li> 
+        				<li th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}">Usuario</li>
+        				<li th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}"><a th:href="@{/busqueda}">Año, estado, centro y usuario</a></li>
+        				<li th:if="${session.usuario.tipoUsuario.name().equals('EMPLEADO')}"><a th:href="@{/buscarAnhoEstado}">Año y estado</a></li> 
         			</ul>
         		</div>
         		<a th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}" th:href="@{/peticiones}">Peticiones pendientes</a>

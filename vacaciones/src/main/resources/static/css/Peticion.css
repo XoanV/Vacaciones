@@ -1,0 +1,18 @@
+div {
+	margin-top: 20px;
+	align-items: center;
+}
+
+.campo {
+	display: flex;
+	gap: 6px;
+}
+
+.error {
+	color: #FE5151;
+	font-weight: bold;
+}
+
+.seccion {
+	text-align: center;
+}

@@ -1,5 +1,7 @@
 package org.afdt.vacaciones.controller;
 
+import java.util.List;
+
 import org.afdt.vacaciones.model.EstadoPeticion;
 import org.afdt.vacaciones.model.PeticionVacaciones;
 import org.afdt.vacaciones.model.Usuario;
@@ -40,11 +42,15 @@ public class EmpleadoController {
 				Usuario usu = (Usuario) sesion.getAttribute("usuario");
 				int anho = Integer.parseInt(ano);
 				peticionVacaciones.setAño(anho);
+				if (peticionVacaciones.getComentario().isBlank()) {
+				    peticionVacaciones.setComentario(null);
+				}
 				peticionVacaciones.setEstado(EstadoPeticion.PENDIENTE);
 				peticionVacaciones.setUsuario(usu);
-				PeticionVacaciones pendiente = fachada.altaPeticion(peticionVacaciones);
-				modelo.addAttribute("peticionVacacionesPendientes", pendiente);
-				return "Inicioemp";
+				fachada.altaPeticion(peticionVacaciones);
+				List<PeticionVacaciones> peticionesPend = fachada.buscarPeticiones(EstadoPeticion.PENDIENTE);
+				modelo.addAttribute("peticionVacacionesPendientes", peticionesPend);
+				return "redirect: Inicioemp";
 			}
 		}
 	}

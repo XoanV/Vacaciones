@@ -1,0 +1,27 @@
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../static/css/Cabecera.css" th:href="@{/css/Cabecera.css}"/>
+	<link rel="stylesheet" href="../static/css/Inicio.css" th:href="@{/css/Inicio.css}">
+	<title>Detalle peticiones</title>
+</head>
+<body>
+	<header th:replace="~{comun/Cabecera :: cab}"></header>
+            <div class="seccion">
+                <p>Id de la petición: <span th:text="${peticion.idPeticion}"></span></p>
+                <p>Fecha de inicio: <span th:text="${peticion.fechaInicio}"></span></p>
+                <p>Fecha de fin: <span th:text="${peticion.fechaFin}"></span></p>
+                <p>Año: <span th:text="${peticion.año}"></span></p>
+                <p th:if="${peticion.comentario != null}">Comentario: <span th:text="${peticion.comentario}"></span></p>
+                <p>Estado de la petición: <span th:text="${peticion.estado}"></span></p>
+                <p>Usuario de la petición: <span th:text="${peticion.usuario.nombre + ' ' + peticion.usuario.apellidos}"></span></p>
+                <div th:if="${peticion.usuario.tipoUsuario.equals('GESTOR')}">
+                	<input type="button" value="Aprobar petición" th:onclick="modificarComentario();">
+                	<input type="button"value="Rechazar petición" th:onclick="modificarComentario();">
+                </div>
+				<input type="button" id="inicio" value="Volver a la página de inicio" th:onclick="|window.location.href='@{/paginaInicio}'|">
+			</div>
+			
+	<script type="text/javascript" th:href="@{/js/Menu.js}"></script>
+</body>
+</html>

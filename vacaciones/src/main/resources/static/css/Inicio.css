@@ -1,28 +1,36 @@
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: Arial, Helvetica, sans-serif;	
-}
-
 legend {
+	padding-bottom: 5px;
 	font-weight: bold;
 }
 
-#petAprob {
+#petAprob li {
 	background-color: #80ff80;
+	margin: 0;
+	padding: 5px;
 }
 
-#petPend {
-	background-color: #ff8000;
-}
-
-#petPend a {
+#petPend, #petRechazadas, #petAprob {	
 	text-decoration: none;
 }
 
-#petRechazadas {
+ul {
+	display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    padding: 0;
+	gap: 0;
+}
+
+#petPend li {
+	background-color: #ff8000;
+	margin: 0;
+	padding: 5px;
+}
+
+#petRechazadas li {
 	background-color: #ff0000;
+	margin: 0;
+	padding: 5px;
 }
 
 #peticion {
@@ -30,8 +38,5 @@ legend {
 	grid-template-columns: repeat(3, 1fr);
 	margin: 30px 20px;
 	gap: 18px;
-}
-
-.peticiones {
-	
+	align-items: start;
 }

@@ -1,8 +1,10 @@
 package org.afdt.vacaciones.model.facade;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.afdt.vacaciones.model.Centro;
+import org.afdt.vacaciones.model.EstadoPeticion;
 import org.afdt.vacaciones.model.PeticionVacaciones;
 import org.afdt.vacaciones.model.Usuario;
 import org.afdt.vacaciones.model.dao.PeticionDAO;
@@ -41,6 +43,14 @@ public class UsuarioFacade {
 
 	public PeticionVacaciones altaPeticion(PeticionVacaciones peticionVacaciones) {
 		return petDAO.save(peticionVacaciones);
+	}
+
+	public List<PeticionVacaciones> buscarPeticiones(EstadoPeticion est) {		
+		return petDAO.findByEstado(est);
+	}
+
+	public PeticionVacaciones buscarPetId(int id) {
+		return petDAO.findById(id).get();
 	}
 
 }
