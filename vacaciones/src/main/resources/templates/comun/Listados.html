@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+	<div th:each="pet, num : ${peticiones}" th:fragment="list">
+		<h1> Petición <span th:text="${num.count}"></span></h1>
+		<ul id="lista">
+			<li>Id de la petición: <span th:text="${pet.idPeticion}"></span></li>
+			<li>Fecha de inicio: <span th:text="${pet.fechaInicio}"></span></li>
+			<li>Fecha de fin: <span th:text="${pet.fechaFin}"></span></li>
+			<li>Año: <span th:text="${pet.año}"></span></li>
+			<li th:if="${pet.comentario != null}">Comentario: <span th:text="${pet.comentario}"></span></li>
+			<li>Estado de la petición: <span th:text="${pet.estado}"></span></li>
+			<li>Usuario de la petición: <span
+				th:text="${pet.usuario.nombre + ' ' + pet.usuario.apellidos}"></span></li>
+		</ul>
+	</div>
+</body>
+</html>

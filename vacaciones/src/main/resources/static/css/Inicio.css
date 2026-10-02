@@ -3,6 +3,10 @@ legend {
 	font-weight: bold;
 }
 
+li {
+	color: black;
+}
+
 #petAprob li {
 	background-color: #80ff80;
 	margin: 0;
@@ -11,6 +15,7 @@ legend {
 
 #petPend, #petRechazadas, #petAprob {	
 	text-decoration: none;
+	
 }
 
 ul {
@@ -24,7 +29,7 @@ ul {
 #petPend li {
 	background-color: #ff8000;
 	margin: 0;
-	padding: 5px;
+	padding: 5px 10px;
 }
 
 #petRechazadas li {

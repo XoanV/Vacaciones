@@ -1,0 +1,27 @@
+input[type="button"] {
+	padding: 8px;
+	background-color: #004FA7;
+	color: white;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+h1 {
+	margin: 5px 0; 
+}
+
+#lista {
+    display: block;
+    padding-left: 40px;
+}
+
+#lista, h1 {
+	text-align: center;
+}
+
+#lista li {
+    list-style-type: circle;
+    list-style-position: inside;
+}

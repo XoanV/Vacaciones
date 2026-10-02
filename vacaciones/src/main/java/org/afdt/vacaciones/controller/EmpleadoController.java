@@ -48,7 +48,7 @@ public class EmpleadoController {
 				peticionVacaciones.setEstado(EstadoPeticion.PENDIENTE);
 				peticionVacaciones.setUsuario(usu);
 				fachada.altaPeticion(peticionVacaciones);
-				List<PeticionVacaciones> peticionesPend = fachada.buscarPeticiones(EstadoPeticion.PENDIENTE);
+				List<PeticionVacaciones> peticionesPend = fachada.buscarPeticiones(usu, EstadoPeticion.PENDIENTE);
 				modelo.addAttribute("peticionVacacionesPendientes", peticionesPend);
 				return "redirect: Inicioemp";
 			}

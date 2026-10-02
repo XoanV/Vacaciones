@@ -1,5 +1,6 @@
 package org.afdt.vacaciones.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.afdt.vacaciones.model.Centro;
@@ -31,33 +32,24 @@ public class UsuarioController {
 	private PasswordEncoder cifrado;
 
 	@GetMapping("/paginaInicio")
-	public String Inicio(Model mod) {
-		Usuario nuevoUsuario = new Usuario();
-		mod.addAttribute("usuario", nuevoUsuario);
-		List<PeticionVacaciones> peticionesPend = fachada.buscarPeticiones(EstadoPeticion.PENDIENTE);
-		List<PeticionVacaciones> aprobadas = fachada.buscarPeticiones(EstadoPeticion.APROBADA);
-		List<PeticionVacaciones> rechazadas = fachada.buscarPeticiones(EstadoPeticion.RECHAZADA);
-		mod.addAttribute("peticionVacacionesPendientes", peticionesPend);
-		mod.addAttribute("peticionVacacionesAprobadas", aprobadas);
-		mod.addAttribute("peticionVacacionesRechazadas", rechazadas);
-		return "Inicioemp";
-	}
-
-	@PostMapping("/paginaInicio")
-	public String pagInicio(Model modelo, HttpSession sesion) {
+	public String Inicio(Model mod, HttpSession sesion) {
 		String pagina = "";
 		Usuario nuevoUsuario = (Usuario) sesion.getAttribute("usuario");
+		if (nuevoUsuario == null) {
+	        return "redirect:/inicio";
+	    }
+		mod.addAttribute("usuario", nuevoUsuario);
 		if (nuevoUsuario.getTipoUsuario().name().equals("EMPLEADO")) {
-			sesion.setAttribute("usuario", nuevoUsuario);
+			List<PeticionVacaciones> peticionesPend = fachada.buscarPeticiones(nuevoUsuario, EstadoPeticion.PENDIENTE);
+			List<PeticionVacaciones> aprobadas = fachada.buscarPeticiones(nuevoUsuario, EstadoPeticion.APROBADA);
+			List<PeticionVacaciones> rechazadas = fachada.buscarPeticiones(nuevoUsuario, EstadoPeticion.RECHAZADA);
+			mod.addAttribute("peticionVacacionesPendientes", peticionesPend);
+			mod.addAttribute("peticionVacacionesAprobadas", aprobadas);
+			mod.addAttribute("peticionVacacionesRechazadas", rechazadas);
 			pagina = "Inicioemp";
-			List<PeticionVacaciones> peticionesPend = fachada.buscarPeticiones(EstadoPeticion.PENDIENTE);
-			List<PeticionVacaciones> aprobadas = fachada.buscarPeticiones(EstadoPeticion.APROBADA);
-			List<PeticionVacaciones> rechazadas = fachada.buscarPeticiones(EstadoPeticion.RECHAZADA);
-			modelo.addAttribute("peticionVacacionesPendientes", peticionesPend);
-			modelo.addAttribute("peticionVacacionesAprobadas", aprobadas);
-			modelo.addAttribute("peticionVacacionesRechazadas", rechazadas);
 		} else if (nuevoUsuario.getTipoUsuario().name().equals("GESTOR")) {
-			sesion.setAttribute("usuario", nuevoUsuario);
+		    List<PeticionVacaciones> peticiones = fachada.buscarTodasLasPeticiones();
+		    mod.addAttribute("peticiones", peticiones);
 			pagina = "Iniciogestor";
 		}
 		return pagina;
@@ -84,21 +76,11 @@ public class UsuarioController {
 				if (!cifrado.matches(usuario.getClave(), resultado.getClave())) {
 					modelo.addAttribute("error", "Las contraseñas no coinciden.");
 					return "Iniciarsesion";
-				} else		
-					sesion.setAttribute("usuario", resultado);
-					if (resultado.getTipoUsuario().name().equals("EMPLEADO")) {
-						List<PeticionVacaciones> peticionesPend = fachada.buscarPeticiones(EstadoPeticion.PENDIENTE);
-						List<PeticionVacaciones> aprobadas = fachada.buscarPeticiones(EstadoPeticion.APROBADA);
-						List<PeticionVacaciones> rechazadas = fachada.buscarPeticiones(EstadoPeticion.RECHAZADA);
-						modelo.addAttribute("peticionVacacionesPendientes", peticionesPend);
-						modelo.addAttribute("peticionVacacionesAprobadas", aprobadas);
-						modelo.addAttribute("peticionVacacionesRechazadas", rechazadas);
-						return "Inicioemp";
-					} else if (resultado.getTipoUsuario().name().equals("GESTOR")) {
-						return "Iniciogestor";
-					}
-		}	
-		return "Iniciarsesion";
+				} else {		
+					 sesion.setAttribute("usuario", resultado);
+				}
+		}
+		return "redirect:/paginaInicio";
 	}
 
 	@GetMapping("/sesioncerrada")
@@ -126,23 +108,27 @@ public class UsuarioController {
 	public String actPerfil(@RequestParam(name = "id") Integer id, @RequestParam(name = "conAct") String conActual, 
 			@RequestParam(name = "conNueva") String nueva, @RequestParam(name = "passwordrepe") String repetida,
 			@RequestParam(name = "correo") String email, @RequestParam(name = "centro") Centro cent, Model modelo,
-			HttpSession sesion) {		
+			HttpSession sesion) {
+		 Usuario usu = fachada.encontrarUsuario(id);
+
+		    modelo.addAttribute("usuario", usu);
+		    modelo.addAttribute("centros", Centro.values());
 		if (email == null || email.isBlank() || conActual == null || conActual.isBlank() || nueva == null
 				|| nueva.isBlank() || repetida == null || repetida.isBlank()) {
-			modelo.addAttribute("error", "No puede haber campos vacíos.");
+			modelo.addAttribute("errorR", "No puede haber campos vacíos.");
 			return "Perfil";
 		} else {
-			Usuario usu = fachada.encontrarUsuario(id);
 			if (!cifrado.matches(conActual, usu.getClave())) {
-			modelo.addAttribute("error", "La contraseña actual no coincide con la almacenada en la base de datos.");
+			modelo.addAttribute("errorR", "La contraseña actual no coincide con la almacenada en la base de datos.");
 		} else
 			if (!nueva.equals(repetida)) {
-				modelo.addAttribute("error", "Las contraseñas no coinciden.");
+				modelo.addAttribute("errorR", "Las contraseñas no coinciden.");
 			} else {				
 				String concifrada = cifrado.encode(nueva);
 				fachada.actualizarUsuario(usu.getIdUsuario(), concifrada, email, cent);
 				Usuario actual = fachada.encontrarUsuario(id);
 				modelo.addAttribute("usuario", actual);
+				sesion.setAttribute("usuario", actual);
 				return "Perfil";
 			}
 		}
@@ -179,9 +165,9 @@ public class UsuarioController {
 				if (!usuario.getClave().equals(passwordrepe)) {
 					modelo.addAttribute("errorR", "Las contraseñas no coinciden.");
 					return "Registro";
-				} else {				
-					usuario.getTipoUsuario();
+				} else {
 					usuario.setTipoUsuario(TipoUsuario.EMPLEADO);
+					System.out.println(usuario.getClave());
 					String con = cifrado.encode(usuario.getClave());
 					usuario.setClave(con);
 					Usuario usuarioGuardado = fachada.altaUsuario(usuario);
@@ -194,5 +180,58 @@ public class UsuarioController {
 					modelo.addAttribute("usuario", usuario);					
 				}
 		return "redirect: Registro";
+	}
+	
+	@GetMapping("/buscarpetAnho")
+	public String buscarAnho(Model modelo, HttpSession sesion) {
+		Usuario nuevoUsuario = (Usuario) sesion.getAttribute("usuario");
+		modelo.addAttribute("usuario", nuevoUsuario);
+		return "Anho";
+	}
+	
+	@PostMapping("/buscarpetAnho")
+	public String peticionesAnho(Model modelo, HttpSession sesion, @RequestParam(name = "anho") String ano) {
+		String pag = "Anho";
+		List<PeticionVacaciones> peticiones = new ArrayList<PeticionVacaciones>();
+		if (ano == null || ano.isBlank()) {
+			modelo.addAttribute("errorR", "El año no puede estar vacío.");
+			return pag;
+		} else {
+			if (!ano.matches("\\d+")) {
+				modelo.addAttribute("errorR", "El año no puede ser texto.");
+				return pag;
+			} else {
+				int anho = Integer.parseInt(ano);		
+				Usuario usu = (Usuario) sesion.getAttribute("usuario");
+				if (usu.getTipoUsuario().name().equals("EMPLEADO")) {
+			        peticiones = fachada.buscarpetAnho(usu.getIdUsuario(), anho);
+			    } else if (usu.getTipoUsuario().name().equals("GESTOR")) {
+			    	peticiones = fachada.buscarAnho(anho);
+			    }
+				modelo.addAttribute("peticiones", peticiones);
+				return pag;
+			}
+		}
+	}
+	
+	@GetMapping("/buscarEstado")
+	public String buscarEstado(Model modelo, HttpSession sesion) {
+		Usuario nuevoUsuario = (Usuario) sesion.getAttribute("usuario");
+		modelo.addAttribute("usuario", nuevoUsuario);
+		return "Estado";
+	}
+	
+	@PostMapping("/buscarEstado")
+	public String peticionesEstado(Model modelo, HttpSession sesion, @RequestParam(name = "es") EstadoPeticion est) {
+		String pag = "Estado";
+		List<PeticionVacaciones> peticiones = new ArrayList<PeticionVacaciones>();
+		Usuario usu = (Usuario) sesion.getAttribute("usuario");
+		if (usu.getTipoUsuario().name().equals("EMPLEADO")) {
+			peticiones = fachada.buscarpetEstado(usu.getIdUsuario(), est);
+		} else if (usu.getTipoUsuario().name().equals("GESTOR")) {
+			peticiones = fachada.buscarEstado(est);
+		}
+		modelo.addAttribute("peticiones", peticiones);
+		return pag;
 	}
 }

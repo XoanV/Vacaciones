@@ -1,0 +1,62 @@
+#calendario {
+    display: none;
+}
+
+.cal { 
+	width: 100%; 
+	margin: 20px auto; 
+	text-align: center; 
+}
+
+.mov {
+    width: 40px;
+    height: 35px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.titulo {
+    display: inline;
+    width: 200px;
+    margin: 0 20px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#div4 {
+    width: 100%;
+    margin-top: 15px;
+}
+
+#div4 table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#div4 th {
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #ccc;
+}
+
+#div4 td {
+    width: 14.28%;
+    height: 120px;
+    padding: 8px;
+    vertical-align: top;
+    border: 1px solid #ccc;
+}
+
+.peticion-calendario {
+    display: block;
+    margin-top: 6px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.peticion-calendario:hover {
+    text-decoration: underline;
+}

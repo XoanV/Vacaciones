@@ -1,8 +1,8 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="../static/css/Cabecera.css" th:href="@{/css/Cabecera.css}"/>
-	<link rel="stylesheet" href="../static/css/Inicio.css" th:href="@{/css/Inicio.css}">
+	<head th:replace="~{comun/Cabecera :: icono}"></head>
+	<link rel="stylesheet" href="../static/css/Peticiones.css" th:href="@{/css/Peticiones.css}">
 	<title>Detalle peticiones</title>
 </head>
 <body>
@@ -15,13 +15,27 @@
                 <p th:if="${peticion.comentario != null}">Comentario: <span th:text="${peticion.comentario}"></span></p>
                 <p>Estado de la petición: <span th:text="${peticion.estado}"></span></p>
                 <p>Usuario de la petición: <span th:text="${peticion.usuario.nombre + ' ' + peticion.usuario.apellidos}"></span></p>
-                <div th:if="${peticion.usuario.tipoUsuario.equals('GESTOR')}">
+                <div th:if="${peticion.usuario.tipoUsuario.equals('GESTOR') and peticion.estado.equals('PENDIENTE')}">
                 	<input type="button" value="Aprobar petición" th:onclick="modificarComentario();">
                 	<input type="button"value="Rechazar petición" th:onclick="modificarComentario();">
                 </div>
 				<input type="button" id="inicio" value="Volver a la página de inicio" th:onclick="|window.location.href='@{/paginaInicio}'|">
 			</div>
-			
-	<script type="text/javascript" th:href="@{/js/Menu.js}"></script>
+			<dialog id="Actualizarcom">
+				<h2>Añadir comentario</h2>
+				<div>
+					<p>¿Seguro que quieres añadir un comentario?</p>
+					<input type="button" id="Si" value="Si">
+					<input type="button" id="No" value="No">
+				</div>
+				<form>
+					<label for="txtCom">Introduce un comentario:</label>
+					<input type="text" id="txtCom" value="${peticion.Comentario}">       
+					<input type="submit" value="Añadir comentario">
+					<input type="button" id="canc" value="Cancelar">
+				</form>				
+		</dialog>			
+	<script type="text/javascript" th:src="@{/js/Menu.js}"></script>
+	<script type="text/javascript" th:if="${peticion.usuario.tipoUsuario.equals('GESTOR') and peticion.estado.equals('PENDIENTE')}" th:src="@{/js/Comentario.js}"></script>
 </body>
 </html>

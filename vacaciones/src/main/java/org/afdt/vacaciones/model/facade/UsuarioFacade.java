@@ -45,12 +45,31 @@ public class UsuarioFacade {
 		return petDAO.save(peticionVacaciones);
 	}
 
-	public List<PeticionVacaciones> buscarPeticiones(EstadoPeticion est) {		
-		return petDAO.findByEstado(est);
+	public List<PeticionVacaciones> buscarPeticiones(Usuario usu, EstadoPeticion est) {		
+		return petDAO.findByUsuarioAndEstado(usu, est);
 	}
 
 	public PeticionVacaciones buscarPetId(int id) {
 		return petDAO.findById(id).get();
 	}
 
+	public List<PeticionVacaciones> buscarpetAnho(int idUsuario, int anho) {
+		return petDAO.findByUsuario_IdUsuarioAndAño(idUsuario, anho);
+	}
+
+	public List<PeticionVacaciones> buscarAnho(int anho) {
+		return petDAO.findByAño(anho);
+	}
+
+	public List<PeticionVacaciones> buscarEstado(EstadoPeticion est) {
+		return petDAO.findByEstado(est);
+	}
+
+	public List<PeticionVacaciones> buscarpetEstado(int idUsuario, EstadoPeticion est) {
+		return petDAO.findByUsuario_IdUsuarioAndEstado(idUsuario, est);
+	}
+
+	public List<PeticionVacaciones> buscarTodasLasPeticiones() {
+		return petDAO.findAll();
+	}
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<th:block th:replace="~{comun/Cabecera :: icono}"></th:block>
+	<link rel="stylesheet" href="../static/css/Calendario.css" th:href="@{/css/Calendario.css}">
+<title>Página de inicio</title>
+</head>
+<body>
+	<header th:replace="~{comun/Cabecera :: cab}"></header>
+	<dialog th:if="${session.usuario.claveReseteada == true}">		
+		
+		<form action="@{/reseteoContraseña}" method="post">
+					<div class="campo">
+				        <label for="txtclave">Introduzca tu contraseña actual:</label>
+				        <input type="password" id="txtclave" required>
+				        <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen"/>
+				    </div>
+					<div class="campo">
+				        <label for="txtclave1">Introduzca la nueva contraseña:</label>
+				        <input type="password" id="txtclave1" required>
+				        <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen1"/>
+				    </div>			    
+				     <div class="campo">
+				        <label for="txtclave2">Repita la nueva contraseña:</label>
+				        <input type="password" id="txtclave2" name="passwordrepe" required>
+				        <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen2"/>
+				    </div>
+				    <div class="error" th:if="${errorR}">
+			            <span th:text="${errorR}"></span>
+			        </div>		        
+					<input type="submit" value="Cambiar contraseña">
+				</form>
+			</dialog>
+	<div id="calendario"></div>
+	<div class="cal">
+	    <input type="button" class="mov" value="<"
+	        onclick="calendario4.mueveCalendar(-1)" />
+	    <p class="titulo" id="input4" onfocus = "calendario4.ntraFecha(this)"></p>
+	    <input type="button" class="mov" value=">"
+	        onclick="calendario4.mueveCalendar(1)" />
+	    <div id="div4" class="tab"></div>
+	</div>
+	<script src="../static/js/Calendario.js" th:src="@{/js/Calendario.js}"></script>
+	<script th:inline="javascript"> 
+	
+		const peticiones = /*[[${peticiones}]]*/ [];
+	    const url = /*[[@{/peticiones}]]*/ "";
+	    var calendario4 = new calendar("calendario4", "div4", "input4", "", true, peticiones, url);
+	    if (calendario4.creado) {
+	    	calendario4.construyeCalendario();
+	    }
+	</script>
+	<script type="text/javascript" th:src="@{/js/Menu.js}"></script>
+	<script th:if="${errorR !=null and session.usuario.claveReseteada == true}" th:inline="javascript">
+    		window.addEventListener("load", function() {
+	        const dialogo = document.getElementById("Actualizarcon");
+	
+	        if (dialogo) {
+	            dialogo.showModal();
+	        }
+	    });
+	</script>
+	<script th:if="${errorR !=null and session.usuario.claveReseteada == true}" th:src="@{/js/Actualizarcon.js}"></script>
+</body>
+</html>

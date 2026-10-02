@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="../static/css/Cabecera.css" th:href="@{/css/Cabecera.css}"/>
+	<head th:replace="~{comun/Cabecera :: icono}"></head>
 	<link rel="stylesheet" href="../static/css/Inicio.css" th:href="@{/css/Inicio.css}">
 	<title>Página de inicio</title>
 </head>
@@ -70,6 +70,15 @@
 		</fieldset>
 	</div>
 	<script th:src="@{/js/Menu.js}"></script>
+<script th:if="${errorR !=null and session.usuario.claveReseteada == true}" th:inline="javascript">
+    		window.addEventListener("load", function() {
+	        const dialogo = document.getElementById("Actualizarcon");
+	
+	        if (dialogo) {
+	            dialogo.showModal();
+	        }
+	    });
+	</script>
 	<script th:src="@{/js/Actualizarcon.js}"></script>
 </body>
 </html>

@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<head th:fragment="icono">
+	<link rel="stylesheet" th:href="@{/css/Cabecera.css}">
+	<link rel="icon" type="image/x-icon" th:href="@{/imagenes/favicon.ico}">
 </head>
 <body>
 
@@ -12,7 +15,7 @@
            <div class="contenedor" id="menuPerfil">
 				<ul>
 					<li><a th:href="@{/perfilUsuario}">Ver mis datos</a></li>
-					<li th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}">Resetear la contraseña de</li>
+					<li th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}"><a th:href="@{/reseteoContrasenha}">Reseteo de contraseña</a></li>
 					<li><a th:href="@{/sesioncerrada}">Cerrar Sesión</a></li>
 				</ul>
 			</div>            
@@ -23,20 +26,29 @@
         		<a id="buscar">Buscar peticiones por</a>
         		<div id="peticiones">
         			<ul>
-        				<li>Año
-	        				<ul>
-	        					<li><a>2026</a></li>
-	        					<li><a>2027</a></li>
+        				<li><a th:href="@{/buscarpetAnho}">Año</a></li>
+        				<li id="cent" th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}">Centro
+        					<ul id="cent">
+        						<li th:each="c : ${centros}"><a th:href="@{/buscarCentro(cent=${c})}" th:text="${c}"></a></li>
+        					</ul>
+        				</li>
+        				<li id="est">Estado
+	        				<ul id="estadoPeticion">
+	        					<li th:each="es : ${estados}"><a th:href="@{/buscarEstado(estado=${es})}" th:text="${es}"></a></li>
 	        				</ul>
 	        			</li>
-        				<li th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}">Centro</li>
-        				<li>Estado</li>
         				<li th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}">Usuario</li>
         				<li th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}"><a th:href="@{/busqueda}">Año, estado, centro y usuario</a></li>
         				<li th:if="${session.usuario.tipoUsuario.name().equals('EMPLEADO')}"><a th:href="@{/buscarAnhoEstado}">Año y estado</a></li> 
         			</ul>
         		</div>
-        		<a th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}" th:href="@{/peticiones}">Peticiones pendientes</a>
+        		<a th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}" th:href="@{/peticiones}" id="peticionesMesRango">Peticiones por</a>
+        		<div th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}" id="peticionesAño">
+        			<ul>
+        				<li><a th:href="@{/peticionesporFecha}">Rango de fechas</a></li>
+        				<li><a th:href="@{/peticionesporMes}">Mes</a></li>
+        			</ul>
+        		</div>
         		<a th:if="${session.usuario.tipoUsuario.name().equals('EMPLEADO')}" th:href="@{/realizarPeticion}">Realizar peticiones</a>
         	</nav>
         </div>

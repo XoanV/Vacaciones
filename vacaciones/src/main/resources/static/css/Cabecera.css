@@ -1,8 +1,8 @@
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: Arial, Helvetica, sans-serif;	
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 header {
@@ -17,7 +17,6 @@ header {
 
 li, li a {
     background-color: white;
-    color: black;
     list-style: none;
 }
 
@@ -29,11 +28,10 @@ nav {
     gap: 50px;
 }
 
-nav a {
+nav > a {
     color: white;
     text-align: center;
     font-size: 14pt;
-    font-family: Arial;
     text-decoration: none;
 }
 
@@ -63,6 +61,7 @@ ul {
     top: 85px;
     background-color: white;
     border-radius: 6px;
+    z-index: 1000;
 }
 
 .contenedor a {
@@ -87,18 +86,77 @@ ul {
     top: 85px;
     background-color: white;
     border-radius: 6px;
+    z-index: 1000;
 }
 
 #peticiones.visible {
     display: block;
 }
 
-#peticiones ul {
+#peticiones > ul {
     display: flex;
     flex-direction: column;
     gap: 0;
-    padding: 10px;
+    padding: 5px 0;
     margin: 0;
     background-color: white;
     border-radius: 6px;
+}
+
+#peticiones > ul > li {
+    position: relative;
+    background-color: white;
+    color: black;
+    white-space: nowrap;
+}
+
+#peticiones > ul > li > a {
+    display: block;
+    padding: 8px 15px;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+}
+
+#est {
+    position: relative;
+    cursor: pointer;
+}
+
+#estadoPeticion {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    margin: 0;
+    padding: 5px 0;
+    background-color: white;
+    border-radius: 6px;
+    flex-direction: column;
+    gap: 0;
+    min-width: 150px;
+    z-index: 2000;
+}
+
+#est:hover #estadoPeticion {
+    display: flex;
+}
+
+#estadoPeticion li {
+    display: block;
+    background-color: white;
+    list-style: none;
+}
+
+#estadoPeticion li a {
+    display: block;
+    padding: 8px 12px;
+    background-color: white;
+    color: black;
+    text-decoration: none;
+}
+
+#estadoPeticion li a:hover, .contenedor a:hover, #peticiones > ul > li > a:hover {
+    background-color: #eeeeee;
+    color: black;
 }
