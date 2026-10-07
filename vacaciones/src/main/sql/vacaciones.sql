@@ -6,7 +6,7 @@ use Vacaciones;
 
 create table Usuario (
 	id_usuario int primary key auto_increment,
-    email varchar(80) not null,
+    email varchar(80) not null unique,
     clave varchar(100) not null, 
     nombre varchar(20) not null,
     apellidos varchar(30) not null,
