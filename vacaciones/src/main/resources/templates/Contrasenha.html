@@ -24,7 +24,7 @@
 	</fieldset>	
 	<p th:if="${usu != null and #lists.isEmpty(usu)}">No se ha encontrado ningún usuario con esos datos.</p>
 	<div th:each="usuario : ${usu}">
-		<span th:text="${usuario.nombre + ' ' + usuario.apellidos}"></span>
+		<span id="nombreap" th:text="${usuario.nombre + ' ' + usuario.apellidos}"></span>
 		<input type="button" class="btnReseteo" value="Resetear contraseña" th:attr="data-id=${usuario.idUsuario}">	
 	</div>
 	
@@ -41,7 +41,7 @@
 				</div>			
 				<input type="submit" id="btnCorreo" value="Enviar correo">
 			</form>
-			<input type="button" value="Cancelar" onclick="cerrarDialogo()">
+			<input type="button" value="Cancelar" id="btnCancelar" onclick="cerrarDialogo()">
 		</div>
 		<div th:if="${sms != null}">
 			<span id="mensaje" th:text="${sms}"></span>
@@ -57,6 +57,7 @@
 	
 	        if (dialogo) {
 	            dialogo.showModal();
+	            document.getElementById("btnCancelar").style.visibility = "hidden";
 	        }
 	    });
 	</script>

@@ -101,12 +101,12 @@ class calendar {
 
         anterior.style.display =
             actual > minimo
-                ? "block"
+                ? "inline"
                 : "none";
 
         siguiente.style.display =
             actual < maximo
-                ? "block"
+                ? "inline"
                 : "none";
 
     }

@@ -21,9 +21,8 @@ ojo.addEventListener("click", () => {
 				ojo.setAttribute("src", "/imagenes/ojo_cerrado.png");
 				contrasenha.type = "password";
 			}	
-	})
+	});
 
 function cerrarDialogo() {
 	document.getElementById("reseteo").close();	
 }
-

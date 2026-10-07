@@ -199,10 +199,7 @@ public class GestorController {
 	}
 
 	@GetMapping("/reseteoContrasenha")
-	public String reset(Model mod, HttpSession ses) {
-		Usuario usuario = (Usuario) ses.getAttribute("usuario");
-		mod.addAttribute("usu", usuario);
-
+	public String reset(Model mod) {
 		return "Contrasenha";
 	}
 
@@ -211,7 +208,7 @@ public class GestorController {
 		Usuario usuario = (Usuario) ses.getAttribute("usuario");
 
 		List<Usuario> lista = fachada.buscarUsuarios(usuariobuscado, usuario.getCentro());
-		if (lista == null) {
+		if (lista.isEmpty()) {
 			mod.addAttribute("error", "El usuario no existe en el centro de " + usuario.getCentro());
 		} else {
 			mod.addAttribute("usu", lista);
@@ -229,12 +226,12 @@ public class GestorController {
 			mod.addAttribute("errorCon", "La contraseña no coincide con la del usuario actual."); 
 			mod.addAttribute("id", id); 
 		} else { 
-			String congenerada = passService.generarContraseña(); 
+			String congenerada = "Ac@demiaPostal6"; 
 			mod.addAttribute("sms", "La contraseña temporal de " + usuario.getNombre() + " " + usuario.getApellidos() + " es " + congenerada); 
 			// fachada.enviarCorreo( // usuarioActual.getEmail(), // usuario.getEmail(), // congenerada // ); } 
 			String conReset = cifrado.encode(congenerada);
 			fachada.cambiarClaveUsu(usuario.getIdUsuario(), conReset);
 		}
 		return "Contrasenha";
-		}
+	}
 }

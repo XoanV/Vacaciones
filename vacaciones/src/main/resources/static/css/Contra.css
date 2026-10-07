@@ -1,8 +1,4 @@
 
-div span {
-	margin-right: 10px;
-}
-
 h1 {
 	text-align: center;
 }
@@ -27,6 +23,10 @@ input[type="button"] {
 .error {
 	color: #FE5151;
 	font-weight: bold;
+}
+
+#nombreap {
+	margin-left: 10px;
 }
 
 #reseteo {
