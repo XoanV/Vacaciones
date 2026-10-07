@@ -5,18 +5,33 @@
 <title></title>
 </head>
 <body>
-	<div th:each="pet, num : ${peticiones}" th:fragment="list">
-		<h1> Petición <span th:text="${num.count}"></span></h1>
-		<ul id="lista">
-			<li>Id de la petición: <span th:text="${pet.idPeticion}"></span></li>
-			<li>Fecha de inicio: <span th:text="${pet.fechaInicio}"></span></li>
-			<li>Fecha de fin: <span th:text="${pet.fechaFin}"></span></li>
-			<li>Año: <span th:text="${pet.año}"></span></li>
-			<li th:if="${pet.comentario != null}">Comentario: <span th:text="${pet.comentario}"></span></li>
-			<li>Estado de la petición: <span th:text="${pet.estado}"></span></li>
-			<li>Usuario de la petición: <span
-				th:text="${pet.usuario.nombre + ' ' + pet.usuario.apellidos}"></span></li>
-		</ul>
+	<div th:fragment="list" id="lista">
+		<div th:each="pet, num : ${peticiones}">
+			<h1> Petición <span th:text="${num.count}"></span></h1>
+			<ul id="lista">
+				<li>Id de la petición: <span th:text="${pet.idPeticion}"></span></li>
+				<li>Fecha de inicio: <span th:text="${pet.fechaInicio}"></span></li>
+				<li>Fecha de fin: <span th:text="${pet.fechaFin}"></span></li>
+				<li>Año: <span th:text="${pet.año}"></span></li>
+				<li th:if="${pet.comentario != null}">Comentario: <span th:text="${pet.comentario}"></span></li>
+				<li>Estado de la petición: <span th:text="${pet.estado}"></span></li>
+				<li>Usuario de la petición: <span
+					th:text="${pet.usuario.nombre + ' ' + pet.usuario.apellidos}"></span></li>
+			</ul>
+		</div>
 	</div>
+	<div th:if="${session.usuario.tipoUsuario.name().equals('GESTOR') and !#lists.isEmpty(peticiones)}" th:fragment="boton">
+		<input type="button" value="Exportar a" id="btnExportar">
+		<div id="archivos">
+			<ul> 
+				<li onclick="exportarLista('word')">Word</li>
+				<li onclick="exportarLista('excel')">Excel</li>
+				<li onclick="exportarLista('txt')">Bloc de notas</li>
+				<li onclick="exportarLista('odt')">Libre Office</li>	
+			</ul>
+		</div>
+	</div>
+	
+	<script th:if="${session.usuario.tipoUsuario.name().equals('GESTOR') and !#lists.isEmpty(peticiones)}" type="text/javascript" th:src="@{/js/Exportar.js}" th:fragment="export"></script>
 </body>
 </html>

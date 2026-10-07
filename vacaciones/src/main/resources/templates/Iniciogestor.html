@@ -2,23 +2,25 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<th:block th:replace="~{comun/Cabecera :: icono}"></th:block>
-	<link rel="stylesheet" href="../static/css/Calendario.css" th:href="@{/css/Calendario.css}">
-<title>Página de inicio</title>
+	<th:block th:replace="~{comun/Cabecera :: icono}"></th:block>
+	<link rel="stylesheet" href="../static/css/Calendario.css" th:href="@{/css/Calendario.css}"/>
+	<link rel="stylesheet" th:href="@{/css/Actualizarcontra.css}"/>
+	<title>Página de inicio</title>
 </head>
 <body>
 	<header th:replace="~{comun/Cabecera :: cab}"></header>
-	<dialog th:if="${session.usuario.claveReseteada == true}">		
+	<dialog th:if="${session.usuario.claveReseteada == true}" id="Actualizarcon">		
 		
-		<form action="@{/reseteoContraseña}" method="post">
+		<form th:action="@{/cambioContrasenha}" method="post">
+					<h1>Cambio de contraseña</h1>
 					<div class="campo">
 				        <label for="txtclave">Introduzca tu contraseña actual:</label>
-				        <input type="password" id="txtclave" required>
+				        <input type="password" id="txtclave" name="conAct" required>
 				        <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen"/>
 				    </div>
 					<div class="campo">
 				        <label for="txtclave1">Introduzca la nueva contraseña:</label>
-				        <input type="password" id="txtclave1" required>
+				        <input type="password" id="txtclave1" name="conNueva" required>
 				        <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen1"/>
 				    </div>			    
 				     <div class="campo">
@@ -51,7 +53,11 @@
 	    	calendario4.construyeCalendario();
 	    }
 	</script>
-	<script type="text/javascript" th:src="@{/js/Menu.js}"></script>
+	<script type="text/javascript" th:src="@{/js/Menu.js}"></script>	
+	<script th:if="${session.usuario.claveReseteada == true}" th:src="@{/js/Actualizarcon.js}"></script>
+	<script th:if="${session.usuario.claveReseteada == true}" th:inline="javascript">
+		document.getElementById("Actualizarcon").showModal();
+	</script>
 	<script th:if="${errorR !=null and session.usuario.claveReseteada == true}" th:inline="javascript">
     		window.addEventListener("load", function() {
 	        const dialogo = document.getElementById("Actualizarcon");
@@ -61,6 +67,6 @@
 	        }
 	    });
 	</script>
-	<script th:if="${errorR !=null and session.usuario.claveReseteada == true}" th:src="@{/js/Actualizarcon.js}"></script>
+	<script th:src="@{/js/MenuMesAnho.js}"></script>
 </body>
 </html>

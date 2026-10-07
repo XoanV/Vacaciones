@@ -1,0 +1,30 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Arial, Helvetica, sans-serif;	
+}
+
+legend {
+	font-weight: bold;
+}
+
+#petAprob {
+	background-color: #80ff80;
+}
+
+#petPend {
+	background-color: #ff8000;
+}
+
+#petRechazadas {
+	background-color: #ff0000;
+}
+
+#peticion {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	margin: 30px 20px;
+	gap: 18px;
+}
+

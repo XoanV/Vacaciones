@@ -3,21 +3,23 @@
 <head>
 	<meta charset="UTF-8">
 	<head th:replace="~{comun/Cabecera :: icono}"></head>
-	<link rel="stylesheet" href="../static/css/Inicio.css" th:href="@{/css/Inicio.css}">
+	<link rel="stylesheet" href="../static/css/Inicio.css" th:href="@{/css/Inicio.css}"/>
+	<link rel="stylesheet" th:href="@{/css/Actualizarcontra.css}"/>
 	<title>Página de inicio</title>
 </head>
 <body>
 	<header th:replace="~{comun/Cabecera :: cab}"></header>
-	<dialog th:if="${session.usuario.claveReseteada == true}">		
-		<form action="@{/reseteoContraseña}" method="post">
+	<dialog th:if="${session.usuario.claveReseteada == true}" id="Actualizar">		
+		<form th:action="@{/cambioContrasenha}" method="post">
+					<h1>Cambio de contraseña</h1>
 					<div class="campo">
 				        <label for="txtclave">Introduzca tu contraseña actual:</label>
-				        <input type="password" id="txtclave" required>
+				        <input type="password" id="txtclave" name="conAct" required>
 				        <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen"/>
 				    </div>
 					<div class="campo">
 				        <label for="txtclave1">Introduzca la nueva contraseña:</label>
-				        <input type="password" id="txtclave1" required>
+				        <input type="password" id="txtclave1" name="conNueva" required>
 				        <img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen1"/>
 				    </div>			    
 				     <div class="campo">
@@ -48,7 +50,7 @@
 			<legend>Peticiones aprobadas</legend>			
 			<span th:if="${peticionVacacionesAprobadas == null or #lists.isEmpty(peticionVacacionesAprobadas)}">No hay peticiones aprobadas.</span>
 			<div th:each="pet : ${peticionVacacionesAprobadas}">
-				<a th:href="@{/peticionesAp(id=${pet.idPeticion})}" id="petAprob">
+				<a th:href="@{/peticiones(id=${pet.idPeticion})}" id="petAprob">
 					<ul>
 						<li>Año: <span th:text="${pet.año}"></span></li>
 						<li th:if="${pet.comentario != null}">Comentario: <span th:text="${pet.comentario}"></span></li>
@@ -60,7 +62,7 @@
 			<legend>Peticiones rechazadas</legend>
 			<span th:if="${peticionVacacionesRechazadas == null or #lists.isEmpty(peticionVacacionesRechazadas)}">No hay peticiones rechazadas.</span>
 			<div th:each="pet : ${peticionVacacionesRechazadas}">
-				<a th:href="@{/peticionesRechaz(id=${pet.idPeticion})}" id="petRechazadas">
+				<a th:href="@{/peticiones(id=${pet.idPeticion})}" id="petRechazadas">
 					<ul>
 						<li>Año: <span th:text="${pet.año}"></span></li>
 						<li th:if="${pet.comentario != null}">Comentario: <span th:text="${pet.comentario}"></span></li>
@@ -70,15 +72,18 @@
 		</fieldset>
 	</div>
 	<script th:src="@{/js/Menu.js}"></script>
-<script th:if="${errorR !=null and session.usuario.claveReseteada == true}" th:inline="javascript">
+	<script th:if="${session.usuario.claveReseteada == true}" th:src="@{/js/Actualizarcon.js}"></script>
+	<script th:if="${session.usuario.claveReseteada == true}" th:inline="javascript">
+		document.getElementById("Actualizar").showModal();
+	</script>
+	<script th:if="${errorR !=null and session.usuario.claveReseteada == true}" th:inline="javascript">
     		window.addEventListener("load", function() {
-	        const dialogo = document.getElementById("Actualizarcon");
+	        const dialogo = document.getElementById("Actualizar");
 	
 	        if (dialogo) {
 	            dialogo.showModal();
 	        }
 	    });
 	</script>
-	<script th:src="@{/js/Actualizarcon.js}"></script>
 </body>
 </html>

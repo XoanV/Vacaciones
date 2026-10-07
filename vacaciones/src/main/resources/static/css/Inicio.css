@@ -33,7 +33,7 @@ ul {
 }
 
 #petRechazadas li {
-	background-color: #ff0000;
+	background-color: rgb(254, 1, 1);
 	margin: 0;
 	padding: 5px;
 }

@@ -28,7 +28,7 @@ nav {
     gap: 50px;
 }
 
-nav > a {
+nav > a, #Contenedorpeticiones span, #buscar, nav span {
     color: white;
     text-align: center;
     font-size: 14pt;
@@ -76,24 +76,32 @@ ul {
     display: block;
 }
 
-#perfil, #buscar {
+#perfil, #buscar, #peticionesMesRango {
     cursor: pointer;
 }
 
-#peticiones {
+#peticiones, #peticionesAño {
     display: none;
     position: absolute;
-    top: 85px;
+    top: 65px;
     background-color: white;
     border-radius: 6px;
     z-index: 1000;
 }
 
-#peticiones.visible {
+#contenedorPeticiones {
+    position: relative;
+}
+
+#peticionesAño {
+    left: 35%;
+}
+
+#peticiones.visible, #peticionesAño.visible {
     display: block;
 }
 
-#peticiones > ul {
+#peticiones > ul, #peticionesAño ul {
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -103,14 +111,14 @@ ul {
     border-radius: 6px;
 }
 
-#peticiones > ul > li {
+#peticiones > ul > li, #peticionesAño > ul > li {
     position: relative;
     background-color: white;
     color: black;
     white-space: nowrap;
 }
 
-#peticiones > ul > li > a {
+#peticiones > ul > li > a, #peticionesAño > ul > li > a {
     display: block;
     padding: 8px 15px;
     background-color: white;
@@ -118,12 +126,16 @@ ul {
     text-decoration: none;
 }
 
-#est {
+#est:hover #estadoPeticion, #cent:hover #centro {
+    display: flex;
+}
+
+#est, #cent {
     position: relative;
     cursor: pointer;
 }
 
-#estadoPeticion {
+#estadoPeticion, #centro {
     display: none;
     position: absolute;
     left: 100%;
@@ -135,20 +147,15 @@ ul {
     flex-direction: column;
     gap: 0;
     min-width: 150px;
-    z-index: 2000;
 }
 
-#est:hover #estadoPeticion {
-    display: flex;
-}
-
-#estadoPeticion li {
+#estadoPeticion li, #centro li {
     display: block;
     background-color: white;
     list-style: none;
 }
 
-#estadoPeticion li a {
+#estadoPeticion li a, #centro li a {
     display: block;
     padding: 8px 12px;
     background-color: white;
@@ -156,7 +163,7 @@ ul {
     text-decoration: none;
 }
 
-#estadoPeticion li a:hover, .contenedor a:hover, #peticiones > ul > li > a:hover {
+#estadoPeticion li a:hover, .contenedor a:hover, #peticiones > ul > li > a:hover, #centro li a:hover, #peticionesAño > ul > li > a:hover {
     background-color: #eeeeee;
     color: black;
 }

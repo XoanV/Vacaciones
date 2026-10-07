@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<head th:replace="~{comun/Cabecera :: icono}"></head>
+<link rel="stylesheet" href="../static/css/Buscar.css" th:href="@{/css/Buscar.css}"/>
+<link rel="stylesheet" href="../static/css/Contra.css" th:href="@{/css/Contra.css}">
+<title>Reseteo de contraseña</title>
+</head>
+<body>
+	<header th:replace="~{comun/Cabecera :: cab}"></header>
+	<fieldset>
+	<legend>Cuadro de búsqueda</legend>
+		<form th:action="@{/reseteoContrasenha}" method="post">
+			<div>
+				<label for="txtUsu">Introduce un usuario:</label>
+				<input type="text" id="txtUsu" name="usu">
+			</div>
+			<div class="error" th:if="${error}">
+			     <span th:text="${error}"></span>
+			</div>
+			<input type="submit" id="btnBuscar" value="Buscar">
+		</form>
+	</fieldset>	
+	<p th:if="${usu != null and #lists.isEmpty(usu)}">No se ha encontrado ningún usuario con esos datos.</p>
+	<div th:each="usuario : ${usu}">
+		<span th:text="${usuario.nombre + ' ' + usuario.apellidos}"></span>
+		<input type="button" class="btnReseteo" value="Resetear contraseña" th:attr="data-id=${usuario.idUsuario}">	
+	</div>
+	
+	<dialog id="reseteo">
+		<div id="campo">
+			<h1>Reseteo de contraseña</h1>
+			<form th:action="@{/correo}" method="post">
+				<input type="hidden" name="id" id="idUsuario" th:value="${id}">
+				<label for="txtclave">Introduce tu contraseña actual:</label>
+				<input type="password" id="txtclave" name="con" required>
+				<img alt="ojo" src="/imagenes/ojo_cerrado.png" id="imagen"/>
+				<div class="error" th:if="${errorCon}">
+				     <span th:text="${errorCon}"></span>
+				</div>			
+				<input type="submit" id="btnCorreo" value="Enviar correo">
+			</form>
+			<input type="button" value="Cancelar" onclick="cerrarDialogo()">
+		</div>
+		<div th:if="${sms != null}">
+			<span id="mensaje" th:text="${sms}"></span>
+			<input type="button" value="Aceptar" onclick="cerrarDialogo()">
+		</div>
+	</dialog>
+	<script type="text/javascript" th:src="@{/js/Menu.js}"></script>
+	<script th:src="@{/js/MenuMesAnho.js}"></script>
+	<script type="text/javascript" th:src="@{/js/Reseteo.js}"></script>
+	<script th:if="${errorCon != null or sms != null}" th:inline="javascript">
+    		window.addEventListener("load", function() {
+	        const dialogo = document.getElementById("reseteo");
+	
+	        if (dialogo) {
+	            dialogo.showModal();
+	        }
+	    });
+	</script>
+</body>
+</html>

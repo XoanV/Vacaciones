@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
@@ -15,27 +16,24 @@
                 <p th:if="${peticion.comentario != null}">Comentario: <span th:text="${peticion.comentario}"></span></p>
                 <p>Estado de la petición: <span th:text="${peticion.estado}"></span></p>
                 <p>Usuario de la petición: <span th:text="${peticion.usuario.nombre + ' ' + peticion.usuario.apellidos}"></span></p>
-                <div th:if="${peticion.usuario.tipoUsuario.equals('GESTOR') and peticion.estado.equals('PENDIENTE')}">
-                	<input type="button" value="Aprobar petición" th:onclick="modificarComentario();">
-                	<input type="button"value="Rechazar petición" th:onclick="modificarComentario();">
+                <div th:if="${usuario.tipoUsuario.name().equals('GESTOR') and peticion.estado.name().equals('PENDIENTE')}">
+                	<input type="button" value="Aprobar petición" th:onclick="|modificarComentario(${peticion.idPeticion}, 'APROBADA')|">
+                	<input type="button"value="Rechazar petición" th:onclick="|modificarComentario(${peticion.idPeticion}, 'RECHAZADA')|">
                 </div>
 				<input type="button" id="inicio" value="Volver a la página de inicio" th:onclick="|window.location.href='@{/paginaInicio}'|">
 			</div>
 			<dialog id="Actualizarcom">
 				<h2>Añadir comentario</h2>
-				<div>
-					<p>¿Seguro que quieres añadir un comentario?</p>
-					<input type="button" id="Si" value="Si">
-					<input type="button" id="No" value="No">
-				</div>
-				<form>
+				<form method="post" th:action="@{/actualizarCom}" th:object="${peticion}">
+					<input type="hidden" name="id" th:value="${peticion.idPeticion}" id="idPet">
+					<input type="hidden" id="estado" name="estado">
 					<label for="txtCom">Introduce un comentario:</label>
-					<input type="text" id="txtCom" value="${peticion.Comentario}">       
-					<input type="submit" value="Añadir comentario">
-					<input type="button" id="canc" value="Cancelar">
+					<input type="text" id="txtCom" name="com" th:value="${peticion.comentario}">       
+					<input type="submit" value="Actualizar estado">
+					<input type="button" id="cerrar" value="Cancelar">
 				</form>				
 		</dialog>			
 	<script type="text/javascript" th:src="@{/js/Menu.js}"></script>
-	<script type="text/javascript" th:if="${peticion.usuario.tipoUsuario.equals('GESTOR') and peticion.estado.equals('PENDIENTE')}" th:src="@{/js/Comentario.js}"></script>
+	<script type="text/javascript" th:if="${usuario.tipoUsuario.name().equals('GESTOR') and peticion.estado.name().equals('PENDIENTE')}" th:src="@{/js/Comentario.js}"></script>
 </body>
 </html>

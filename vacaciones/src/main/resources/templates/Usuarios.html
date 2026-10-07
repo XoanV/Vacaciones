@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="_csrf" th:content="${_csrf.token}">
+	<head th:replace="~{comun/Cabecera :: icono}"></head>
+	<link rel="stylesheet" href="../static/css/Listas.css" th:href="@{/css/Listas.css}"/>	
+	<link rel="stylesheet" href="../static/css/Buscar.css" th:href="@{/css/Buscar.css}">
+	<title>Peticiones por usuario</title>
+</head>
+<body>
+	<header th:replace="~{comun/Cabecera :: cab}"></header>
+	<fieldset>
+	<legend>Cuadro de búsqueda</legend>
+		<form th:action="@{/buscarpetUsuario}" method="post">
+			<div>
+				<label for="txtUsu">Introduce un usuario:</label>
+				<input type="text" id="txtUsu" name="usu">
+			</div>
+			<div class="error" th:if="${errorR}">
+			     <span th:text="${errorR}"></span>
+			</div>
+			<input type="submit" id="btnBuscar" value="Buscar">
+		</form>
+	</fieldset>
+		<div th:replace="~{comun/Listados :: boton}"></div>
+		<span th:if="${peticiones != null and #lists.isEmpty(peticiones)}">El usuario no realizó peticiones.</span>
+		<div th:replace="~{comun/Listados :: list}"></div>
+	<script type="text/javascript" th:src="@{/js/Menu.js}"></script>
+	<script th:src="@{/js/MenuMesAnho.js}"></script>
+	<script th:replace="~{comun/Listados :: export}"></script>
+</body>
+</html>

@@ -48,10 +48,6 @@ input[type="submit"] {
 	transition: background-color .2s;
 }
 
-input[type="submit"]:hover {
-	background-color: #4a90e2;
-}
-
 input {
 	margin-bottom: 10px;
 }

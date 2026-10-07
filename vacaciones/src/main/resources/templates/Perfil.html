@@ -2,8 +2,8 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<th:block th:replace="~{comun/Cabecera :: icono}"></th:block>
 <title>Ver perfil</title>
-    <link rel="stylesheet" href="../static/css/Cabecera.css" th:href="@{/css/Cabecera.css}"/>
     <link rel="stylesheet" href="../static/css/Perfil.css" th:href="@{/css/Perfil.css}">
 </head>
 <body>
@@ -69,6 +69,7 @@
 	        }
 	    });
 	</script>
-	<script type="text/javascript" th:src="@{/js/Actualizarcon.js}"></script>				
+	<script type="text/javascript" th:src="@{/js/Actualizarcon.js}"></script>
+	<script th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}" th:src="@{/js/MenuMesAnho.js}"></script>				
 </body>
 </html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<head th:replace="~{comun/Cabecera :: icono}"></head>
+<link rel="stylesheet" href="../static/css/Listas.css" th:href="@{/css/Listas.css}" />
+<link rel="stylesheet" href="../static/css/Buscar.css" 	th:href="@{/css/Buscar.css}">
+<title>Peticiones por año y estado</title>
+</head>
+<body>
+	<header th:replace="~{comun/Cabecera :: cab}"></header>
+	<fieldset>
+		<legend>Cuadro de búsqueda</legend>
+		<form th:action="@{/buscarAnhoEstado}" method="post">
+			<div class="filtros">
+				<div class="campo">
+					<label for="txtAnho">Introduce un año:</label> <input type="text"
+						id="txtAnho" name="anho">
+				</div>
+
+				<div class="campo">
+					<span>Elige un estado:</span> 
+					<div class="estados">
+						<label th:each="es : ${estados}"> <input type="radio"
+							name="estado" th:value="${es}"> <span th:text="${es}"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="error" th:if="${errorR}">
+				<span th:text="${errorR}"></span>
+			</div>
+			<input type="submit" id="btnBuscar" value="Buscar">
+		</form>
+	</fieldset>
+
+	<span th:if="${peticiones != null and #lists.isEmpty(peticiones)}">No se realizaron peticiones con esas condiciones.</span>
+	<div th:replace="~{comun/Listados :: list}"></div>
+	<script type="text/javascript" th:src="@{/js/Menu.js}"></script>
+</body>
+</html>

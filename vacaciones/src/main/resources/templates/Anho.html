@@ -2,6 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<meta name="_csrf" th:content="${_csrf.token}">
 <head th:replace="~{comun/Cabecera :: icono}"></head>
 <link rel="stylesheet" href="../static/css/Listas.css" th:href="@{/css/Listas.css}"/>
 <link rel="stylesheet" href="../static/css/Buscar.css" th:href="@{/css/Buscar.css}">
@@ -12,7 +13,7 @@
 	<fieldset>
 	<legend>Cuadro de búsqueda</legend>
 		<form th:action="@{/buscarpetAnho}" method="post">
-			<div id="busqueda">
+			<div>
 				<label for="txtAnho">Introduce un año:</label>
 				<input type="text" id="txtAnho" name="anho">
 			</div>
@@ -22,18 +23,11 @@
 			<input type="submit" id="btnBuscar" value="Buscar">
 		</form>
 	</fieldset>
-	
+		<div th:replace="~{comun/Listados :: boton}"></div>	
 		<span th:if="${peticiones != null and #lists.isEmpty(peticiones)}">No se realizaron peticiones en ese año.</span>
 		<div th:replace="~{comun/Listados :: list}"></div>
-	<div th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}">
-		<input type="button" value="Exportar a">
-		<ul>
-			<li>Word</li>
-			<li>Excel</li>
-			<li>Bloc de notas</li>
-			<li>Libre Office</li>	
-		</ul>
-	</div>
 	<script type="text/javascript" th:src="@{/js/Menu.js}"></script>
+	<script th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}" th:src="@{/js/MenuMesAnho.js}"></script>
+	<script th:replace="~{comun/Listados :: export}"></script>
 </body>
 </html>

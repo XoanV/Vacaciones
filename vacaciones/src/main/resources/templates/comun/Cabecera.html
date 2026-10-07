@@ -23,12 +23,12 @@
         <div>
         	<nav>
         		<a th:href="@{/paginaInicio}">Inicio</a>
-        		<a id="buscar">Buscar peticiones por</a>
+        		<span id="buscar">Buscar peticiones por</span>
         		<div id="peticiones">
         			<ul>
         				<li><a th:href="@{/buscarpetAnho}">Año</a></li>
         				<li id="cent" th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}">Centro
-        					<ul id="cent">
+        					<ul id="centro">
         						<li th:each="c : ${centros}"><a th:href="@{/buscarCentro(cent=${c})}" th:text="${c}"></a></li>
         					</ul>
         				</li>
@@ -37,17 +37,18 @@
 	        					<li th:each="es : ${estados}"><a th:href="@{/buscarEstado(estado=${es})}" th:text="${es}"></a></li>
 	        				</ul>
 	        			</li>
-        				<li th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}">Usuario</li>
+        				<li th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}"><a th:href="@{/buscarpetUsuario}">Usuario</a></li>
         				<li th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}"><a th:href="@{/busqueda}">Año, estado, centro y usuario</a></li>
         				<li th:if="${session.usuario.tipoUsuario.name().equals('EMPLEADO')}"><a th:href="@{/buscarAnhoEstado}">Año y estado</a></li> 
         			</ul>
         		</div>
-        		<a th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}" th:href="@{/peticiones}" id="peticionesMesRango">Peticiones por</a>
-        		<div th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}" id="peticionesAño">
-        			<ul>
-        				<li><a th:href="@{/peticionesporFecha}">Rango de fechas</a></li>
-        				<li><a th:href="@{/peticionesporMes}">Mes</a></li>
-        			</ul>
+        		<div id="ContenedorPeticiones">
+        			<span th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}" id="peticionesMesRango">Peticiones por</span>
+	        		<div th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}" id="peticionesAño">
+	        			<ul>
+	        				<li><a th:href="@{/peticionesporFecha}">Rango de fechas</a></li>
+	        			</ul>
+	        		</div>
         		</div>
         		<a th:if="${session.usuario.tipoUsuario.name().equals('EMPLEADO')}" th:href="@{/realizarPeticion}">Realizar peticiones</a>
         	</nav>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<head>
+<meta charset="UTF-8">
+<head th:replace="~{comun/Cabecera :: icono}"></head>
+<link rel="stylesheet" href="../static/css/Calendario.css" th:href="@{/css/Calendario.css}"/>
+<link rel="stylesheet" href="../static/css/Buscar.css" th:href="@{/css/Buscar.css}">
+<title>Peticiones por fecha</title>
+</head>
+<body>	
+	<header th:replace="~{comun/Cabecera :: cab}"></header>
+	<fieldset>
+	<legend>Cuadro de búsqueda</legend>
+		<form th:action="@{/peticionesporFecha}" method="post">
+			<div> 
+				<label for="fechaInicio">Selecciona una fecha de inicio:</label>
+			    <input type="date" id="fechaInicio" name="fechaInicio" required>
+			    <label for="fechaFin">Selecciona una fecha final:</label>
+			    <input type="date" id="fechaFin" name="fechaFin" required>
+			</div>
+			<div class="error" th:if="${error}">
+			     <span th:text="${error}"></span>
+			</div>
+			<input type="submit" id="btnBuscar" value="Buscar">
+		</form>
+	</fieldset>
+	
+	<div id="calendario"></div>
+	<div class="cal" th:if="${peticiones != null}">
+	    <input type="button" class="mov" value="<" id="flechaAnterior" onclick="calendario4.mueveCalendar(-1)" />
+	    <p class="titulo" id="input4" onfocus = "calendario4.ntraFecha(this)"></p>
+	    <input type="button" class="mov" value=">" id="flechaSiguiente" onclick="calendario4.mueveCalendar(1)" />
+	    <div id="div4" class="tab"></div>
+	</div>
+	<script src="../static/js/CalendarioFecha.js" th:src="@{/js/CalendarioFecha.js}"></script>
+	<script th:inline="javascript">
+		const peticiones = /*[[${peticiones}]]*/[];
+
+		const fechaInicio = /*[[${fechaInicio}]]*/null;
+
+		const fechaFin = /*[[${fechaFin}]]*/null;
+
+		const url = /*[[@{/peticiones}]]*/"";
+
+		var calendario4 = new calendar("calendario4", "div4", "input4", "", true, peticiones, url, fechaInicio, fechaFin);
+
+		if (calendario4.creado) {
+			calendario4.construyeCalendario();
+
+		}
+	</script>
+	<script type="text/javascript" th:src="@{/js/Menu.js}"></script>
+	<script th:src="@{/js/MenuMesAnho.js}"></script>
+</body>
+</html>

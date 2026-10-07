@@ -12,6 +12,26 @@ h1 {
 	margin: 5px 0; 
 }
 
+#archivos {
+	display: none;
+    position: absolute;
+    left: 1250px;
+    background-color: white;
+    border-radius: 6px;
+    z-index: 1000;
+}
+
+#archivos.visible {
+	display: block;
+}
+
+#btnExportar {
+	display: block;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
 #lista {
     display: block;
     padding-left: 40px;

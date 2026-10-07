@@ -5,15 +5,15 @@
 	<meta name="_csrf" th:content="${_csrf.token}">
 	<head th:replace="~{comun/Cabecera :: icono}"></head>
 	<link rel="stylesheet" href="../static/css/Listas.css" th:href="@{/css/Listas.css}"/>
-	<title>Peticiones por estado</title>
+	<title>Peticiones por centro</title>
 </head>
 <body>
 	<header th:replace="~{comun/Cabecera :: cab}"></header>
-		<div th:replace="~{comun/Listados :: boton}"></div>
-		<span th:if="${peticiones != null and #lists.isEmpty(peticiones)}">No hay peticiones con ese estado.</span>
-		<div th:replace="~{comun/Listados :: list}"></div>
+	<div th:replace="~{comun/Listados :: boton}"></div>
+		<span th:if="${peticiones != null and #lists.isEmpty(peticiones)}">No hay peticiones en ese centro.</span>
+		<div th:replace="~{comun/Listados :: list}"></div>		
 	<script type="text/javascript" th:src="@{/js/Menu.js}"></script>
-	<script th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}" th:src="@{/js/MenuMesAnho.js}"></script>
-	<script th:replace="~{comun/Listados :: export}"></script>	
+	<script th:src="@{/js/MenuMesAnho.js}"></script>
+	<script th:replace="~{comun/Listados :: export}"></script>
 </body>
 </html>

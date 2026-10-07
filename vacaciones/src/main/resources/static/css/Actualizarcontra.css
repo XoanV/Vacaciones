@@ -1,26 +1,31 @@
-img {
-	width: 20px;
+h1 {
+	text-align: center;
 }
 
-input[type="button"], input[type="submit"] {
-	margin-top: 20px;
-	padding: 12px;
+img {
+	width: 25px;
+}
+
+input[type="submit"] {
+	margin-left: 10px;
+	padding: 8px;
 	background-color: #004FA7;
 	color: white;
 	border: none;
 	border-radius: 6px;
 	cursor: pointer;
-	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	margin: 0 auto;
+	display: block;	
+}
+
+.error {
+	color: #FE5151;
 	font-weight: bold;
 }
 
-h3 {
-	margin-top: 50px;
-	margin-left: 20px;
-	text-align: left;	
-}
-
-#Actualizardatos {
+#Actualizar {
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 20px;
@@ -30,15 +35,6 @@ h3 {
     transform: translate(-50%, -50%);	
 }
 
-#Actualizardatos input, h2 {
+#Actualizar input, h1 {
 	margin-bottom: 10px;
-}
-
-.error {
-	color: #FE5151;
-	font-weight: bold;
-}
-	
-.seccion {
-	text-align: center;
 }

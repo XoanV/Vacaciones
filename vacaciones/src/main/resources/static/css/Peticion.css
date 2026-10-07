@@ -1,18 +1,34 @@
-div {
+fieldset {
+	margin-bottom: 20px;
+	position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);	
+}
+
+form {
 	margin-top: 20px;
 	align-items: center;
 }
 
-.campo {
-	display: flex;
-	gap: 6px;
+input[type="submit"] {
+	padding: 12px;
+	background-color: #004FA7;
+	color: white;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
 }
 
 .error {
+	margin-top: 15px;
+	text-align: center;
 	color: #FE5151;
 	font-weight: bold;
 }
 
 .seccion {
-	text-align: center;
+	display: block;
 }
