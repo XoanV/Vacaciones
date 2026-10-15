@@ -9,6 +9,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Usuario {
@@ -25,19 +27,23 @@ public class Usuario {
 	@Enumerated(EnumType.STRING)
 	private Centro centro;
 	private boolean claveReseteada;
+	@OneToOne
+	@JoinColumn(name = "configuracion", referencedColumnName = "id_configuracion")
+	private Configuracion configuracion;
 	
 	public Usuario() {
 	}
 
 	public Usuario(String email, String clave, String nombre, String apellidos, TipoUsuario tipoUsuario,
-			Centro centro, boolean claveR) {
+			Centro centro, boolean claveR, Configuracion conf) {
 		this.email = email;
 		this.clave = clave;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.tipoUsuario = tipoUsuario;
 		this.centro = centro;
-		this.claveReseteada = claveR; 
+		this.claveReseteada = claveR;
+		this.configuracion = conf;
 	}
 
 	public int getIdUsuario() {
@@ -102,6 +108,14 @@ public class Usuario {
 
 	public void setClaveReseteada(boolean claveReseteada) {
 		this.claveReseteada = claveReseteada;
+	}	
+
+	public Configuracion getConfiguracion() {
+		return configuracion;
+	}
+
+	public void setConfiguracion(Configuracion configuracion) {
+		this.configuracion = configuracion;
 	}
 
 	@Override
@@ -124,9 +138,8 @@ public class Usuario {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Usuario [idUsuario=").append(idUsuario).append(", email=").append(email).append(", clave=")
-				.append(clave).append(", nombre=").append(nombre).append(", apellidos=").append(apellidos)
-				.append(", tipoUsuario=").append(tipoUsuario).append(", centro=").append(centro).append("claveReseteada=").append(claveReseteada).append("]");
+		builder.append("Usuario [idUsuario=").append(idUsuario).append(", email=").append(email).append(", nombre=").append(nombre).append(", apellidos=").append(apellidos)
+				.append(", tipoUsuario=").append(tipoUsuario).append(", centro=").append(centro).append(", Configuracion=").append(configuracion).append("]");
 		return builder.toString();
 	}
 }

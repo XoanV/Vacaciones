@@ -50,9 +50,7 @@ public class EmpleadoController {
 				peticionVacaciones.setEstado(EstadoPeticion.PENDIENTE);
 				peticionVacaciones.setUsuario(usu);
 				fachada.altaPeticion(peticionVacaciones);
-				List<PeticionVacaciones> peticionesPend = fachada.buscarPeticiones(usu, EstadoPeticion.PENDIENTE);
-				modelo.addAttribute("peticionVacacionesPendientes", peticionesPend);
-				return "Inicioemp";
+				return "redirect:/paginaInicio";
 			}
 		}
 	}
@@ -87,5 +85,14 @@ public class EmpleadoController {
 		modelo.addAttribute("peticiones", peticiones);
 		modelo.addAttribute("estados", EstadoPeticion.values());
 		return "AnhoEstado";
+	}
+	
+	@PostMapping("/eliminar")
+	public String peticiones(@RequestParam(name = "id") int id, Model modelo, HttpSession sesion) {
+		Usuario usuario = (Usuario) sesion.getAttribute("usuario");
+		PeticionVacaciones pet = fachada.buscarPetId(id);
+		fachada.elPeticion(pet);
+		modelo.addAttribute("usuario", usuario);
+		return "redirect:/paginaInicio";
 	}
 }

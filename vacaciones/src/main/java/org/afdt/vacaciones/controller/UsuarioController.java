@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.afdt.vacaciones.model.Centro;
+import org.afdt.vacaciones.model.Configuracion;
 import org.afdt.vacaciones.model.EstadoPeticion;
 import org.afdt.vacaciones.model.PeticionVacaciones;
 import org.afdt.vacaciones.model.TipoUsuario;
@@ -209,7 +210,7 @@ public class UsuarioController {
 
 	@RequestMapping(path = "registro", method = RequestMethod.POST)
 	public String registrarse(@ModelAttribute("usuario") Usuario usuario, Model modelo,
-			@RequestParam String passwordrepe) {
+			@RequestParam String passwordrepe, @RequestParam String color, Configuracion configuracion) {
 
 		try {
 
@@ -250,6 +251,12 @@ public class UsuarioController {
 						String con = cifrado.encode(usuario.getClave());
 
 						usuario.setClave(con);
+						
+						configuracion.setColor(color);
+						
+						fachada.config(configuracion);
+						
+						usuario.setConfiguracion(configuracion);
 
 						Usuario usuarioGuardado = fachada.altaUsuario(usuario);
 

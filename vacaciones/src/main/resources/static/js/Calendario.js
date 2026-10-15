@@ -69,13 +69,13 @@ class calendar {
 
             peticionesDia.forEach(peticion => {
                 const enlace = document.createElement("a");
-
                 enlace.textContent = peticion.usuario.nombre + " - " + peticion.estado;
-				enlace.href = url + "?id=" + peticion.idPeticion;
+				enlace.href = url + "?id=" + peticion.idPeticion;				
                 enlace.classList.add("peticion-calendario");
 				enlace.style.display = "block";
 				enlace.style.textDecoration = "none";
-				enlace.style.color = "black";
+				enlace.style.color = "white";
+				enlace.style.backgroundColor = peticion.usuario.configuracion.color;
                 celda.appendChild(enlace);
             });
 

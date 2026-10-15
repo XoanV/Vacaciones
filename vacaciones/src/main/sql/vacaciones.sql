@@ -4,6 +4,11 @@ create database Vacaciones;
 
 use Vacaciones;
 
+create table Configuracion (
+	id_configuracion int primary key auto_increment,
+	color varchar(7) not null
+);
+
 create table Usuario (
 	id_usuario int primary key auto_increment,
     email varchar(80) not null unique,
@@ -12,7 +17,9 @@ create table Usuario (
     apellidos varchar(30) not null,
     tipo_usuario enum('GESTOR', 'EMPLEADO') not null,
     centro enum('CORUÑA', 'SANTIAGO', 'FERROL', 'LUGO', 'OURENSE') not null,
-    clave_reseteada boolean default false
+    clave_reseteada boolean default false,
+    configuracion int not null unique,
+    foreign key (configuracion) references Configuracion(id_configuracion)
 );
 
 create table PeticionVacaciones (
@@ -25,8 +32,3 @@ create table PeticionVacaciones (
     usuario int not null,
     foreign key (usuario) references Usuario(id_usuario)
 );
-
-INSERT INTO Usuario (id_usuario, email, clave, nombre, apellidos, tipo_usuario, centro) values (1, 'rafael.martinez@academiapostal.es', 'AAAAAAAAAAAAA', 'Rafael', 'Martinez Serrano', 'GESTOR', 'CORUÑA'),
-						   (2, 'gabriel.maceira@academiapostal.es', 'AAAAAAAAAAAAA', 'Gabriel', 'Maceira', 'GESTOR', 'CORUÑA'),
-						   (3, 'pepe.perez@academiapostal.es', 'AAAAAAAAAAAAA', 'Pepe', 'Pérez', 'GESTOR', 'FERROL'),
-						   (4, 'manolo.veiga@academiapostal.es', 'AAAAAAAAAAAAA', 'Monolo', 'Veiga', 'GESTOR', 'LUGO')

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.afdt.vacaciones.Service.ExportacionService;
-import org.afdt.vacaciones.Service.PasswordService;
 import org.afdt.vacaciones.model.Centro;
 import org.afdt.vacaciones.model.EstadoPeticion;
 import org.afdt.vacaciones.model.PeticionVacaciones;
@@ -34,8 +33,8 @@ public class GestorController {
 	@Autowired
 	private ExportacionService exportacionService;
 
-	@Autowired
-	private PasswordService passService;
+//	@Autowired
+//	private PasswordService passService;
 
 	@Autowired
 	private PasswordEncoder cifrado;

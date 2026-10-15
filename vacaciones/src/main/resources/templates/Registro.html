@@ -41,6 +41,10 @@
 			        	<option th:each="c : ${centros}" th:value="${c}" th:text="${c}"></option>
 			        </select>
 			    </div>
+			    <div class="campo">
+			        <label for="color">Selecciona un color:</label>
+			        <input type="color" id="color" name="color" required>
+			    </div>
 			    <div class="error" th:if="${errorR}">
 		            <span th:text="${errorR}"></span>
 		        </div>

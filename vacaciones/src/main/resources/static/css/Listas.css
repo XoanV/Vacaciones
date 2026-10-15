@@ -1,4 +1,4 @@
-input[type="button"] {
+input {
 	padding: 8px;
 	background-color: #004FA7;
 	color: white;
@@ -8,21 +8,19 @@ input[type="button"] {
 	font-weight: bold;
 }
 
-h1 {
-	margin: 5px 0; 
+table {
+    margin-left: 40px;
+    margin-top: 10px;	
 }
 
-#archivos {
-	display: none;
-    position: absolute;
-    left: 1250px;
-    background-color: white;
-    border-radius: 6px;
-    z-index: 1000;
+table, tr, td, th {
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 
-#archivos.visible {
-	display: block;
+td, th {
+	padding-right: 30px;
+	padding-left: 10px;
 }
 
 #btnExportar {
@@ -30,18 +28,4 @@ h1 {
     margin-top: 10px;
     margin-left: auto;
     margin-right: 20px;
-}
-
-#lista {
-    display: block;
-    padding-left: 40px;
-}
-
-#lista, h1 {
-	text-align: center;
-}
-
-#lista li {
-    list-style-type: circle;
-    list-style-position: inside;
 }

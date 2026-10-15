@@ -6,9 +6,11 @@ import java.util.Optional;
 
 import org.afdt.vacaciones.Filtros.FiltroPeticiones;
 import org.afdt.vacaciones.model.Centro;
+import org.afdt.vacaciones.model.Configuracion;
 import org.afdt.vacaciones.model.EstadoPeticion;
 import org.afdt.vacaciones.model.PeticionVacaciones;
 import org.afdt.vacaciones.model.Usuario;
+import org.afdt.vacaciones.model.dao.ConfiguracionDAO;
 import org.afdt.vacaciones.model.dao.PeticionDAO;
 import org.afdt.vacaciones.model.dao.UsuarioDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +25,15 @@ public class UsuarioFacade {
 
 	@Autowired
 	private PeticionDAO petDAO;
+	
+	@Autowired
+	private ConfiguracionDAO confDAO;
 
 	public Usuario iniciarSesion(String email) {
 		return usuDAO.findByEmail(email);
 	}
 
-	public Usuario altaUsuario(Usuario usuario) {
+	public Usuario altaUsuario(Usuario usuario) {		
 		return usuDAO.save(usuario);
 	}
 
@@ -49,7 +54,12 @@ public class UsuarioFacade {
 	}
 
 	public List<PeticionVacaciones> buscarPeticiones(Usuario usu, EstadoPeticion est) {
-		return petDAO.findByUsuarioAndEstado(usu, est);
+		LocalDate AnhoActual = LocalDate.now();
+		return petDAO.findByUsuarioAndEstadoAndAño(usu, est, AnhoActual.getYear());
+	}
+	
+	public void elPeticion(PeticionVacaciones pet) {
+		petDAO.delete(pet);
 	}
 
 	public PeticionVacaciones buscarPetId(int id) {
@@ -132,5 +142,9 @@ public class UsuarioFacade {
 		usu.get().setClave(concifrada);
 		usu.get().setClaveReseteada(false);
 		usuDAO.save(usu.get());
+	}
+	
+	public Configuracion config(Configuracion conf) {
+		return confDAO.save(conf);
 	}
 }

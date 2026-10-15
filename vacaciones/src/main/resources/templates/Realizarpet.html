@@ -13,7 +13,7 @@
 		    <legend>Realizar petición</legend>		
 			    <div class="seccion">
 			        <label for="fechaInicio">Selecciona una fecha de inicio:</label>
-			        <input type="date" id="fechaInicio" th:field="*{fechaInicio}" required>
+			        <input type="date" id="fechaInicio" th:field="*{fechaInicio}" th:attr="min=${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}" required>
 			        <label for="fechaFin">Selecciona una fecha final:</label>
 			        <input type="date" id="fechaFin" th:field="*{fechaFin}" required>
 			        <label for="anho">Introduce un año:</label>

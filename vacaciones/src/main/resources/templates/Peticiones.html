@@ -9,7 +9,6 @@
 <body>
 	<header th:replace="~{comun/Cabecera :: cab}"></header>
             <div class="seccion">
-                <p>Id de la petición: <span th:text="${peticion.idPeticion}"></span></p>
                 <p>Fecha de inicio: <span th:text="${peticion.fechaInicio}"></span></p>
                 <p>Fecha de fin: <span th:text="${peticion.fechaFin}"></span></p>
                 <p>Año: <span th:text="${peticion.año}"></span></p>
@@ -22,6 +21,8 @@
                 </div>
 				<input type="button" id="inicio" value="Volver a la página de inicio" th:onclick="|window.location.href='@{/paginaInicio}'|">
 			</div>
+			<input type="submit" value="Eliminar Petición" th:if="${usuario.tipoUsuario.name().equals('EMPLEADO') and peticion.estado.name().equals('RECHAZADA')}"
+			th:onclick="|eliminarPeticion(${peticion.idPeticion}, 'RECHAZADA')|">
 			<dialog id="Actualizarcom">
 				<h2>Añadir comentario</h2>
 				<form method="post" th:action="@{/actualizarCom}" th:object="${peticion}">
@@ -32,8 +33,19 @@
 					<input type="submit" value="Actualizar estado">
 					<input type="button" id="cerrar" value="Cancelar">
 				</form>				
+		</dialog>
+		<dialog id="Eliminar">
+				<h2>Eliminar Petición</h2>
+				<p>¿Seguro que quieres eliminar la petición?</p>       
+				<form method="post" th:action="@{/eliminar}">
+					<input type="hidden" name="id" th:value="${peticion.idPeticion}">
+					<input type="submit" value="Aceptar">
+				</form>
+				<input type="button" id="canc" value="Cancelar">				
 		</dialog>			
 	<script type="text/javascript" th:src="@{/js/Menu.js}"></script>
 	<script type="text/javascript" th:if="${usuario.tipoUsuario.name().equals('GESTOR') and peticion.estado.name().equals('PENDIENTE')}" th:src="@{/js/Comentario.js}"></script>
+	<script th:if="${session.usuario.tipoUsuario.name().equals('GESTOR')}" th:src="@{/js/MenuMesAnho.js}"></script>
+	<script th:if="${usuario.tipoUsuario.name().equals('EMPLEADO') and peticion.estado.name().equals('RECHAZADA')}" th:src="@{/js/Eliminar.js}"></script>
 </body>
 </html>

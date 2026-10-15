@@ -45,10 +45,10 @@
 	</div>
 	<script src="../static/js/Calendario.js" th:src="@{/js/Calendario.js}"></script>
 	<script th:inline="javascript"> 
-	
 		const peticiones = /*[[${peticiones}]]*/ [];
+		 const peticionesFiltradas = peticiones.filter(peticion => peticion.estado !== "RECHAZADA");
 	    const url = /*[[@{/peticiones}]]*/ "";
-	    var calendario4 = new calendar("calendario4", "div4", "input4", "", true, peticiones, url);
+	    var calendario4 = new calendar("calendario4", "div4", "input4", "", true, peticionesFiltradas, url);
 	    if (calendario4.creado) {
 	    	calendario4.construyeCalendario();
 	    }

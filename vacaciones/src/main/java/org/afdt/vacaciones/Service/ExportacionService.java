@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.zip.ZipEntry;
 
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -57,22 +58,47 @@ public class ExportacionService {
 	}
 
 	private ResponseEntity<byte[]> generarExcel(String contenido, String titulo) {
-		try (XSSFWorkbook libro = new XSSFWorkbook(); ByteArrayOutputStream salida = new ByteArrayOutputStream()) {
-			XSSFSheet hoja = libro.createSheet("Listado");
-			String[] lineas = contenido.split("\\r?\\n");
-			int fila = 0;
-			for (String linea : lineas) {
-				Row row = hoja.createRow(fila++);
-				row.createCell(0).setCellValue(linea);
-			}
-			hoja.autoSizeColumn(0);
-			libro.write(salida);
-			return respuesta(salida.toByteArray(), titulo, "xlsx",
-					"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-		} catch (Exception e) {
-			throw new RuntimeException("Error generando el documento Excel", e);
-		}
-	}
+    try (XSSFWorkbook libro = new XSSFWorkbook();
+         ByteArrayOutputStream salida = new ByteArrayOutputStream()) {
+
+        XSSFSheet hoja = libro.createSheet("Listado");
+        
+        String[] lineas = contenido.split("\\r?\\n", -1);
+
+        int numeroFila = 0;
+
+        for (String linea : lineas) {
+            Row fila = hoja.createRow(numeroFila++);
+            
+            String[] datos = linea.split("\\t", -1);
+
+            for (int columna = 0; columna < datos.length; columna++) {
+                Cell celda = fila.createCell(columna);
+                celda.setCellValue(datos[columna]);
+            }
+        }
+        
+        if (numeroFila > 0) {
+            int numeroColumnas = hoja.getRow(0).getLastCellNum();
+
+            for (int columna = 0; columna < numeroColumnas; columna++) {
+                hoja.autoSizeColumn(columna);
+            }
+        }
+
+        libro.write(salida);
+
+        return respuesta(
+            salida.toByteArray(),
+            titulo,
+            "xlsx",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        );
+
+    } catch (Exception e) {
+        throw new RuntimeException("Error generando el documento Excel", e);
+    }
+}
 
 	private ResponseEntity<byte[]> generarTxt(String contenido, String titulo) {
 		String texto = titulo + System.lineSeparator() + System.lineSeparator() + contenido;

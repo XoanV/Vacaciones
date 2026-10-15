@@ -24,7 +24,7 @@ public interface PeticionDAO extends JpaRepository<PeticionVacaciones, Integer>,
 
     List<PeticionVacaciones> findByUsuarioNombre(String nom);
 
-    List<PeticionVacaciones> findByUsuarioAndEstado(Usuario usu, EstadoPeticion est);
+    List<PeticionVacaciones> findByUsuarioAndEstadoAndAño(Usuario usu, EstadoPeticion est, int anho);
 
     List<PeticionVacaciones> findByAño(int anho);
     

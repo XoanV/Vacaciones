@@ -41,6 +41,7 @@
 				<a th:href="@{/peticiones(id=${pet.idPeticion})}" id="petPend">
 					<ul>
 						<li>Año: <span th:text="${pet.año}"></span></li>
+						<li>Fecha de inicio: <span th:text="${pet.fechaInicio}"></span></li>
 						<li th:if="${pet.comentario != null}">Comentario: <span th:text="${pet.comentario}"></span></li>
 					</ul>
 				</a>
@@ -53,6 +54,7 @@
 				<a th:href="@{/peticiones(id=${pet.idPeticion})}" id="petAprob">
 					<ul>
 						<li>Año: <span th:text="${pet.año}"></span></li>
+						<li>Fecha de inicio: <span th:text="${pet.fechaInicio}"></span></li>
 						<li th:if="${pet.comentario != null}">Comentario: <span th:text="${pet.comentario}"></span></li>
 					</ul>
 				</a>
@@ -65,6 +67,7 @@
 				<a th:href="@{/peticiones(id=${pet.idPeticion})}" id="petRechazadas">
 					<ul>
 						<li>Año: <span th:text="${pet.año}"></span></li>
+						<li>Fecha de inicio: <span th:text="${pet.fechaInicio}"></span></li>
 						<li th:if="${pet.comentario != null}">Comentario: <span th:text="${pet.comentario}"></span></li>
 					</ul>
 				</a>

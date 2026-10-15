@@ -76,6 +76,12 @@ ul {
     display: block;
 }
 
+#logo {
+	height: 75px;
+	width: auto;
+	padding: 5px;
+}
+
 #perfil, #buscar, #peticionesMesRango {
     cursor: pointer;
 }

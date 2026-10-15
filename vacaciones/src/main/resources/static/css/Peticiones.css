@@ -14,7 +14,7 @@ h2 {
 	text-align: center;	
 }
 
-#Actualizarcom {
+#Actualizarcom, #Eliminar {
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 20px;
